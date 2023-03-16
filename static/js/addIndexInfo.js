@@ -103,58 +103,58 @@ $(function(){
         $jsontip.html(strHtml);//显示处理后的数据
         $mainButtontip.html(mainButtonHtml);
 
-        // id = sessionStorage.getItem('setIntervalId');
-        // // console.log(id)
-        // if(id!=-1)
-        // {
-        //     sessionStorage.setItem('setIntervalId',-1);
-        //     clearInterval(id);
-        //     // console.log("停止更新")
-        // }
-        // id = setInterval(function(){
-        //     liveInfos = document.querySelectorAll(".vid-info>span")
-        //     livestatusWords = document.querySelectorAll(".vid-info>.livestatus")
-        //     livestatusThumbs = document.querySelectorAll("#vidlist > div > a > div > img")
-        //     achornames = document.querySelectorAll('.vid-info > p')
-        //     var msg = makeData({"name":'index'})
-        //     $.post("/msg",msg,function(data){    
-        //         retMsg = receviceData(data)
-        //         if(retMsg.status==503)
-        //         {
-        //             return
-        //         }
-        //         if(retMsg.status==404)
-        //         {
-        //             alert(data.msg)
-        //             return
-        //         }
-        //         $.each(retMsg.msg,function(infoIndex,info)
-        //         {
-        //             liveInfo = liveInfos[infoIndex]
-        //             livestatusWord = livestatusWords[infoIndex]
-        //             livestatusThumb = livestatusThumbs[infoIndex]
-        //             achorname = achornames[infoIndex]
-        //             //更新侧边栏视频信息    
-        //             if(achorname.innerText==info['achorname'])
-        //             {
-        //                 if(info['liveStatus'] == "ON")    
-        //                 {
-        //                     liveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
-        //                     livestatusWord.innerText = "直播中";
-        //                     livestatusWord.style = "background: rgb(204 0 0 / 90%)";
-        //                     livestatusThumb.src = info["thumbUrl"];
-        //                 }
-        //                 else
-        //                 {
-        //                     liveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
-        //                     livestatusWord.innerText = "未直播";
-        //                     livestatusWord.style = "background: #909090";
-        //                 }
-        //             }
-        //         })
-        //     })
-        // },Math.random()*30000+30000)
-        // sessionStorage.setItem('setIntervalId',id);
+        id = sessionStorage.getItem('setIntervalId');
+        // console.log(id)
+        if(id!=-1)
+        {
+            sessionStorage.setItem('setIntervalId',-1);
+            clearInterval(id);
+            // console.log("停止更新")
+        }
+        id = setInterval(function(){
+            liveInfos = document.querySelectorAll(".vid-info>span")
+            livestatusWords = document.querySelectorAll(".vid-info>.livestatus")
+            livestatusThumbs = document.querySelectorAll("#vidlist > div > a > div > img")
+            achornames = document.querySelectorAll('.vid-info > p')
+            var msg = makeData({"name":'index'})
+            $.post("/msg",msg,function(data){    
+                retMsg = receviceData(data)
+                if(retMsg.status==503)
+                {
+                    return
+                }
+                if(retMsg.status==404)
+                {
+                    alert(data.msg)
+                    return
+                }
+                $.each(retMsg.msg,function(infoIndex,info)
+                {
+                    liveInfo = liveInfos[infoIndex]
+                    livestatusWord = livestatusWords[infoIndex]
+                    livestatusThumb = livestatusThumbs[infoIndex]
+                    achorname = achornames[infoIndex]
+                    //更新侧边栏视频信息    
+                    if(achorname.innerText==info['achorname'])
+                    {
+                        if(info['liveStatus'] == "ON")    
+                        {
+                            liveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
+                            livestatusWord.innerText = "直播中";
+                            livestatusWord.style = "background: rgb(204 0 0 / 90%)";
+                            livestatusThumb.src = info["thumbUrl"];
+                        }
+                        else
+                        {
+                            liveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                            livestatusWord.innerText = "未直播";
+                            livestatusWord.style = "background: #909090";
+                        }
+                    }
+                })
+            })
+        },Math.random()*30000+30000)
+        sessionStorage.setItem('setIntervalId',id);
         lazyImages()
         $("#progress").addClass("done");
         siderControl()
