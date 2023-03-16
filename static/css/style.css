@@ -70,7 +70,7 @@ nav{
     margin-right: 25px;
 }
 .nav-left .logo{
-    background-image: url("images/darklogo.png");
+    background-image: url("static/images/darklogo.png");
     background-size: 160px;
     background-repeat: no-repeat;
     padding: 0px 0px 42px 160px;
@@ -1128,7 +1128,7 @@ body {
     --rightbarshadow:rgba(255, 255, 255, 0.12)
     }
     .nav-left .logo{
-        background-image: url("../images/darklogo.png");
+        background-image: url("static/images/darklogo.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
@@ -1163,7 +1163,7 @@ body {
         --rightbarshadow:rgba(0, 0, 0, 0.3);
     }
     .nav-left .logo{
-        background-image: url("../images/lightlogo.png");
+        background-image: url("static/images/lightlogo.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
