@@ -70,7 +70,8 @@ nav{
     margin-right: 25px;
 }
 .nav-left .logo{
-    background-image: url("static/images/darklogo.png");
+    /* darklogo */
+    background-image: url("https://i.328888.xyz/2023/03/17/KJNKo.png");
     background-size: 160px;
     background-repeat: no-repeat;
     padding: 0px 0px 42px 160px;
@@ -1128,7 +1129,8 @@ body {
     --rightbarshadow:rgba(255, 255, 255, 0.12)
     }
     .nav-left .logo{
-        background-image: url("static/images/darklogo.png");
+        /* darklogo */
+        background-image: url("https://i.328888.xyz/2023/03/17/KJNKo.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
@@ -1163,7 +1165,8 @@ body {
         --rightbarshadow:rgba(0, 0, 0, 0.3);
     }
     .nav-left .logo{
-        background-image: url("static/images/lightlogo.png");
+        /* lightlogo */
+        background-image: url("https://i.328888.xyz/2023/03/17/KJIgA.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
