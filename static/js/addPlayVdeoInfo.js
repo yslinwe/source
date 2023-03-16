@@ -118,84 +118,84 @@ $(function(){
         })
         $sidertip.html(siderHtml);
         $jsontip.html(strHtml);//显示处理后的数据
-        // id = sessionStorage.getItem('setIntervalId');
-        // // console.log(id)
-        // if(id!=-1)
-        // {
-        //     sessionStorage.setItem('setIntervalId',-1);
-        //     clearInterval(id);
-        //     // console.log("停止更新")
-        // }
-        // id = setInterval(function(){
-        //     sideLiveInfos = document.querySelectorAll(".vid-info>span")
-        //     livestatusWords = document.querySelectorAll(".vid-info>.livestatus")
-        //     livestatusThumbs = document.querySelectorAll("#sidebar > div > a > div > img")
-        //     achornames = document.querySelectorAll('#sidebar > div > div > p')
+        id = sessionStorage.getItem('setIntervalId');
+        // console.log(id)
+        if(id!=-1)
+        {
+            sessionStorage.setItem('setIntervalId',-1);
+            clearInterval(id);
+            // console.log("停止更新")
+        }
+        id = setInterval(function(){
+            sideLiveInfos = document.querySelectorAll(".vid-info>span")
+            livestatusWords = document.querySelectorAll(".vid-info>.livestatus")
+            livestatusThumbs = document.querySelectorAll("#sidebar > div > a > div > img")
+            achornames = document.querySelectorAll('#sidebar > div > div > p')
             
-        //     var msg = makeData({"name":'index'})
-        //     $.post("/msg",msg,function(data){    
-        //         retMsg = receviceData(data)
-        //         if(retMsg.status==503)
-        //         {
-        //             alert(data.msg)
-        //             return
-        //         }
-        //         if(retMsg.status==404)
-        //         {
-        //             alert(data.msg)
-        //             return
-        //         }
-        //         addindex = 0
-        //         $.each(retMsg.msg,function(infoIndex,info)
-        //         {
-        //             if(info["linkid"]== fristLinkId)
-        //             {
-        //                 addindex = -1
-        //                  //更新视频信息    
-        //                 if(info['liveStatus'] == "ON")    
-        //                 {
-        //                     document.getElementById('totalCount').innerText = info["totalCount"];
-        //                     document.getElementById('createTime').innerText = "• "+info["category"]+" • 开播时间："+info["created_at"];
-        //                 }
-        //                 else
-        //                 {
-        //                     document.getElementById('liveStatusInfo').innerHTML = "";
-        //                     document.getElementById('createTime').innerText = info["category"]+" • 上次开播时间："+info["created_at"];
-        //                 }
-        //                 document.title = info['folderName'];
-        //                 document.getElementById('vid-title').innerText=info['folderName'];
-        //                 document.getElementById('subscribe').innerText = info['subscribe'];
-        //                 document.getElementById('welcomeText').innerHTML = info['welcomeText'];
-        //             }
-        //             else
-        //             {
-        //                 sideLiveInfo = sideLiveInfos[infoIndex+addindex]
-        //                 livestatusWord = livestatusWords[infoIndex+addindex]
-        //                 livestatusThumb = livestatusThumbs[infoIndex+addindex]
-        //                 achorname = achornames[infoIndex+addindex]
-        //                 //更新侧边栏视频信息    
-        //                 if(achorname.innerText==info["achorname"])
-        //                 {
-        //                     console.log("更新测边栏信息")
-        //                     if(info['liveStatus'] == "ON")    
-        //                     {
-        //                         sideLiveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
-        //                         livestatusWord.innerText = "直播中";
-        //                         livestatusWord.style = "background: rgb(204 0 0 / 90%)";
-        //                         livestatusThumb.src = info["thumbUrl"];
-        //                     }
-        //                     else
-        //                     {
-        //                         sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
-        //                         livestatusWord.innerText = "未直播";
-        //                         livestatusWord.style = "background: #909090";
-        //                     }
-        //                 }
-        //             }
-        //         })
-        //     })
-        // },Math.random()*30000+30000) //(m-n)+n)大于等于n，小于m (60-30)+30 
-        // sessionStorage.setItem('setIntervalId',id);
+            var msg = makeData({"name":'index'})
+            $.post("/msg",msg,function(data){    
+                retMsg = receviceData(data)
+                if(retMsg.status==503)
+                {
+                    alert(data.msg)
+                    return
+                }
+                if(retMsg.status==404)
+                {
+                    alert(data.msg)
+                    return
+                }
+                addindex = 0
+                $.each(retMsg.msg,function(infoIndex,info)
+                {
+                    if(info["linkid"]== fristLinkId)
+                    {
+                        addindex = -1
+                         //更新视频信息    
+                        if(info['liveStatus'] == "ON")    
+                        {
+                            document.getElementById('totalCount').innerText = info["totalCount"];
+                            document.getElementById('createTime').innerText = "• "+info["category"]+" • 开播时间："+info["created_at"];
+                        }
+                        else
+                        {
+                            document.getElementById('liveStatusInfo').innerHTML = "";
+                            document.getElementById('createTime').innerText = info["category"]+" • 上次开播时间："+info["created_at"];
+                        }
+                        document.title = info['folderName'];
+                        document.getElementById('vid-title').innerText=info['folderName'];
+                        document.getElementById('subscribe').innerText = info['subscribe'];
+                        document.getElementById('welcomeText').innerHTML = info['welcomeText'];
+                    }
+                    else
+                    {
+                        sideLiveInfo = sideLiveInfos[infoIndex+addindex]
+                        livestatusWord = livestatusWords[infoIndex+addindex]
+                        livestatusThumb = livestatusThumbs[infoIndex+addindex]
+                        achorname = achornames[infoIndex+addindex]
+                        //更新侧边栏视频信息    
+                        if(achorname.innerText==info["achorname"])
+                        {
+                            console.log("更新测边栏信息")
+                            if(info['liveStatus'] == "ON")    
+                            {
+                                sideLiveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
+                                livestatusWord.innerText = "直播中";
+                                livestatusWord.style = "background: rgb(204 0 0 / 90%)";
+                                livestatusThumb.src = info["thumbUrl"];
+                            }
+                            else
+                            {
+                                sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                                livestatusWord.innerText = "未直播";
+                                livestatusWord.style = "background: #909090";
+                            }
+                        }
+                    }
+                })
+            })
+        },Math.random()*30000+30000) //(m-n)+n)大于等于n，小于m (60-30)+30 
+        sessionStorage.setItem('setIntervalId',id);
         lazyImages()
         $("#progress").addClass("done");
         siderControl()
