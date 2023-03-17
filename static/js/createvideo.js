@@ -104,7 +104,7 @@ function createVideo(source,platform,roomid) {
   //     video.src = source;
   //     break;
   // }
-  console.log(source)
+//   console.log(source)
   if(flvjs.isSupported())
   {
     const flvPlayer = flvjs.createPlayer(
@@ -300,6 +300,7 @@ var p = String(UrlParam.paramValues("p"));
 //     loading.style.display = 'none'
 // createVideo(url,p,v);
 var msg = makeData({"platform":p,'roomid':v})
+
 $.post("/link",msg,function(data){    
     retMsg = receviceData(data)
     if(retMsg.status==503)
@@ -313,7 +314,7 @@ $.post("/link",msg,function(data){
     }
     var loading = document.getElementById("loading");
     loading.style.display = 'none'
-    createVideo(retMsg.msg,p,v);
+        createVideo(retMsg.msg,p,v);
     })
 }
 $(function(){
