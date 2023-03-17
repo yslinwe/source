@@ -1,11 +1,4 @@
 function createVideo(source,platform,roomid) {       
-    var $jsontip = $("#video");
-    var strHtml = "";//存储数据的变量
-    strHtml +=
-    '<video id="player" playsinline controls> '
-    +'<source id="videos" src="'+source+'"">'
-    +'</video>'
-    $jsontip.append(strHtml)
   const controls = [
     'play-large', // The large play button in the center
     // 'restart', // Restart playback
@@ -72,13 +65,12 @@ function createVideo(source,platform,roomid) {
   };
   const speed = { selected: 1, options: [0.5, 1, 1.5 , 2, 4] };
   const settings = ['captions', 'quality', 'speed', 'loop'];
-  const blankVideo = 'https://cdn.plyr.io/static/blank.mp4';
   const autoplay = true;
   const captions = { active: true, language: 'auto', update: true }
   const ratio = '16:9';
   const fullscreen = { enabled: true, fallback: true, iosNative: true, container: null }
   // const keyboard = {  focused: true, global: true  }
-  const player = new Plyr('#player', { controls,settings,blankVideo,autoplay,ratio,i18n,speed,captions,fullscreen});
+  const player = new Plyr('#player', { controls,settings,autoplay,ratio,i18n,speed,captions,fullscreen});
   // var a =  parent.document.getElementById('progress')
   // a.style='opacity:0;'
   player.on('error',(event) => {
@@ -317,6 +309,4 @@ $.post("/link",msg,function(data){
         createVideo(retMsg.msg,p,v);
     })
 }
-$(function(){
-    initVideo();
-})
+

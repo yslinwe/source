@@ -1,7 +1,5 @@
 $(function(){
-    var v = UrlParam.paramValues("v");
-    var p = UrlParam.paramValues("p");
-    document.getElementById('video').src='video?v='+v+'&p='+p;
+    var v = String(UrlParam.paramValues("v"));
     fristLinkId = ''
     sessionStorage.setItem("currentPage",'play')
     var msg = makeData({"name":String(v)})
@@ -118,6 +116,12 @@ $(function(){
         })
         $sidertip.html(siderHtml);
         $jsontip.html(strHtml);//显示处理后的数据
+        // 初始化视频
+        initVideo();
+        lazyImages()
+        $("#progress").addClass("done");
+        siderControl()
+
         id = sessionStorage.getItem('setIntervalId');
         // console.log(id)
         if(id!=-1)
@@ -126,6 +130,7 @@ $(function(){
             clearInterval(id);
             // console.log("停止更新")
         }
+
         id = setInterval(function(){
             sideLiveInfos = document.querySelectorAll(".vid-info>span")
             livestatusWords = document.querySelectorAll(".vid-info>.livestatus")
@@ -196,9 +201,6 @@ $(function(){
             })
         },Math.random()*30000+30000) //(m-n)+n)大于等于n，小于m (60-30)+30 
         sessionStorage.setItem('setIntervalId',id);
-        lazyImages()
-        $("#progress").addClass("done");
-        siderControl()
     })
 })
 })
