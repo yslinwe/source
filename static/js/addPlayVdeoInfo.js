@@ -1,8 +1,8 @@
-var v = UrlParam.paramValues("v");
-var p = UrlParam.paramValues("p");
-document.getElementById('video').src='video?v='+v+'&p='+p;
-fristLinkId = ''
 $(function(){
+    var v = UrlParam.paramValues("v");
+    var p = UrlParam.paramValues("p");
+    document.getElementById('video').src='video?v='+v+'&p='+p;
+    fristLinkId = ''
     sessionStorage.setItem("currentPage",'play')
     var msg = makeData({"name":String(v)})
     $.post("/msg",msg,function(data){    
