@@ -187,7 +187,7 @@ function updatedanmmu(instance,socket,platform,roomid)
       {
         timestamp = Date.now()/1000
         targeturl = "https://www."+platform+".com/"+roomid
-        senddata = [instance.duration,timestamp,roomid,targeturl]
+        senddata = [instance.currentTime,timestamp,roomid,targeturl]
         var msg = makeData({"data":senddata})
         socket.emit('startDm', msg);
         return false;
