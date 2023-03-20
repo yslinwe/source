@@ -635,7 +635,7 @@ nav{
 .side-video-list .vid-left a{
     color: var(--firsttextcolor);
     font-family: "Roboto","Arial",sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 400;
 }
 .side-video-list:active

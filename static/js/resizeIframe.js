@@ -12,7 +12,7 @@
         var players = ['iframe[src*="video"]', 'iframe[src*="vimeo.com"]'];
     
         // Select videos
-        var fitVids = document.querySelectorAll(players.join(","));
+        var fitVids = document.querySelectorAll('#video');
     
         // If there are videos on the page...
         if (fitVids.length) {

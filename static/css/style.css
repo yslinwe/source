@@ -371,6 +371,7 @@ nav{
 .vid-list .thumbnail{
     width: 100%;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .vid-list .flex-div{
@@ -378,18 +379,19 @@ nav{
     margin-top: 7px;
 }
 .avatar-img-bg-color{
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     background-color: var(--secondbgcolor);
     margin-right: 15px;
     margin-left: 15px;
     border-radius: 50%;
 }
 .vid-list .flex-div .avatar-img-bg-color img{
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     margin-right: 10px;
     border-radius: 50%;
+    object-fit: cover;
 }
 .vid-info{
     /* index中下面颜色 */
@@ -1228,6 +1230,7 @@ body {
     height: 100%;
     max-height: 500px;
     border-radius: 5px;
+    object-fit: cover;
 }
 /* -----------------loading----------------------- */
 .fitVids-wrapper {

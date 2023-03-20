@@ -1,4 +1,4 @@
-function createVideo(source,platform,roomid) {       
+function createVideo(source,format,platform,roomid) {       
   const controls = [
     'play-large', // The large play button in the center
     // 'restart', // Restart playback
@@ -80,44 +80,60 @@ function createVideo(source,platform,roomid) {
     initVideo();
   });
   var video = document.querySelector('video');
-  // switch (true) {
-  //   case platform =='huya':
-  //       // For more Hls.js options, see https://github.com/dailymotion/hls.js
-  //       var hls = new Hls();
-  //       hls.loadSource(source);
-  //       hls.attachMedia(video);
-  //     break;
-  //   case platform =='douyu':
-  //     const flvPlayer = flvjs.createPlayer({type: 'flv',url: source,});
-  //     flvPlayer.attachMediaElement(video);
-  //     flvPlayer.load();
-  //     break;
-  //   default:
-  //     video.src = source;
-  //     break;
-  // }
+  console.log(format)
+  switch (true) {
+    case format =='m3u':
+      // For more Hls.js options, see https://github.com/dailymotion/hls.js
+      console.log("hls播放器")
+      var hls = new Hls();
+      hls.loadSource(source);
+      hls.attachMedia(video);
+      break;
+    case format =='flv':
+      console.log("flv播放器")
+      const flvPlayer = flvjs.createPlayer(
+      {
+        type: 'flv',
+        isLive: true,
+        url: source,
+        hasAudio: true,
+        hasVideo:true,
+      },
+      {
+          enableStashBuffer: true,
+          fixAudioTimestampGap:false,
+      }
+      );
+      flvPlayer.attachMediaElement(video);
+      flvPlayer.load();
+      break;
+    default:
+      video.src = source;
+      break;
+  }
 //   console.log(source)
-  if(flvjs.isSupported())
-  {
-    const flvPlayer = flvjs.createPlayer(
-    {
-      type: 'flv',
-      isLive: true,
-      url: source,
-      hasAudio: true,
-      hasVideo:true,
-    },
-    {
-        enableStashBuffer: true,
-    }
-    );
-    flvPlayer.attachMediaElement(video);
-    flvPlayer.load();
-  }
-  else
-  {
-    video.src = source;
-  }
+  // if(flvjs.isSupported())
+  // {
+  //   const flvPlayer = flvjs.createPlayer(
+  //   {
+  //     type: 'flv',
+  //     isLive: true,
+  //     url: source,
+  //     hasAudio: true,
+  //     hasVideo:true,
+  //   },
+  //   {
+  //       enableStashBuffer: true,
+  //       fixAudioTimestampGap:false,
+  //   }
+  //   );
+  //   flvPlayer.attachMediaElement(video);
+  //   flvPlayer.load();
+  // }
+  // else
+  // {
+  //   video.src = source;
+  // }
   // if (!Hls.isSupported()) {
   //       video.src = source;
   // } 
@@ -186,8 +202,18 @@ function createVideo(source,platform,roomid) {
 function updatedanmmu(instance,socket,platform,roomid)
       {
         timestamp = Date.now()/1000
-        targeturl = "https://www."+platform+".com/"+roomid
-        senddata = [instance.duration,timestamp,roomid,targeturl]
+        switch (true) {
+        case platform =='huya'||platform =='douyu':
+          targeturl = "https://www."+platform+".com/"+roomid
+          break;
+        case platform =='cc':
+          targeturl = "https://cc.163.com/"+roomid+"/"
+          break;
+        default:
+          return;
+      }
+        
+        senddata = [instance.currentTime,timestamp,targeturl]
         var msg = makeData({"data":senddata})
         socket.emit('startDm', msg);
         return false;
@@ -287,9 +313,9 @@ function initVideo()
 var v = String(UrlParam.paramValues("v"));
 var p = String(UrlParam.paramValues("p"));
 // url = `http://127.0.0.1:8282/${p}/${v}/flv/refresh`
-// url = 'http://127.0.0.1:5050/'+p+'/'+v;
-//             var loading = document.getElementById("loading");
-//     loading.style.display = 'none'
+// url = 'https://realurl.tomdejio.repl.co/'+p+'/'+v;
+// var loading = document.getElementById("loading");
+// loading.style.display = 'none'
 // createVideo(url,p,v);
 var msg = makeData({"platform":p,'roomid':v})
 
@@ -301,12 +327,13 @@ $.post("/link",msg,function(data){
     }
     if(retMsg.status==404)
     {
-        console.log(data.msg)
+        console.alert(data.msg)
         return
     }
     var loading = document.getElementById("loading");
     loading.style.display = 'none'
-        createVideo(retMsg.msg,p,v);
+        data = retMsg.msg
+        createVideo(data['url'],data['format'],p,v);
     })
 }
 
