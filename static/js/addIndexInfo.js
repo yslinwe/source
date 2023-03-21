@@ -80,6 +80,7 @@ $(function(){
                     +"<button value="+info['link']+">删除</button>"
                 +"</div>"
             }
+            
             // addbutton
             if(mainButtonArray.indexOf('全部') <= -1)
             {
@@ -92,11 +93,14 @@ $(function(){
                 mainButtonArray.push(info["platform_Zh"])
                 mainButtonHtml +='<button type="button" title="分类按钮" class="normalButton">'+info["platform_Zh"]+'</button>'
             }
-            if (mainButtonArray.indexOf(info["category"]) <= -1)
+            if(info["category"]!="")
             {
-                console.log(info["category"]);
-                mainButtonArray.push(info["category"])
-                mainButtonHtml +='<button type="button" title="分类按钮" class="normalButton">'+info["category"]+'</button>'
+                if (mainButtonArray.indexOf(info["category"]) <= -1)
+                {
+                    console.log(info["category"]);
+                    mainButtonArray.push(info["category"])
+                    mainButtonHtml +='<button type="button" title="分类按钮" class="normalButton">'+info["category"]+'</button>'
+                }
             }
         })
         $sidertip.html(siderHtml);

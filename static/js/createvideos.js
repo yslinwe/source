@@ -176,7 +176,6 @@ function createVideo(source,format,platform,roomid) {
   player.on('loadeddata', (event) => {
           // console.log("load")
           const instance = event.detail.plyr;
-          instance.currentTime = instance.duration-2
           if(platform!="douyin")
             updatedanmmu(instance,socket,platform,roomid)
           });
