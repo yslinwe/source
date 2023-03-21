@@ -100,8 +100,8 @@ function createVideo(source,format,platform,roomid) {
         hasVideo:true,
       },
       {
-          enableStashBuffer: true,
-          fixAudioTimestampGap:false,
+          enableStashBuffer: false,
+          fixAudioTimestampGap:true,
       }
       );
       flvPlayer.attachMediaElement(video);
