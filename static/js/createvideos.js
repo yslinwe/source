@@ -161,7 +161,7 @@ function createVideo(source,format,platform,roomid) {
           track.addCue(new VTTCue(retMsg.data['from'], retMsg.data['to'], info));
         })
     });
-  player.on('loadeddata', (event) => {
+  player.on('loadedmetadata', (event) => {
           // console.log("load")
           const instance = event.detail.plyr;
           if(platform!="douyin")
