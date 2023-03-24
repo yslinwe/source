@@ -139,10 +139,16 @@ function createVideo(source,format,platform,roomid) {
   // }
   const track = video.addTextTrack('subtitles', '中文', 'zh');
   var socket = io();
+
   window.onunload=()=>{
     var msg = makeData({"roomid":String(v)})
     socket.emit('stopDm', msg);
     return false;
+  }
+  if(platform!="douyin")
+  {
+    startTime = Date.now()
+    updatedanmmu(socket,platform,roomid)
   }
   socket.on('getDm response', function(msg) {
       // console.log(msg.data)
@@ -158,15 +164,14 @@ function createVideo(source,format,platform,roomid) {
         }
         // console.log("更新",retMsg.msg['content'].length,retMsg.msg['from'], retMsg.msg['to'])
         $.each(retMsg.data['content'],function(infoIndex,info){
-          track.addCue(new VTTCue(retMsg.data['from'], retMsg.data['to'], info));
+          track.addCue(new VTTCue(retMsg.data['from']+loadingTime, retMsg.data['to']+loadingTime, info));
         })
     });
-  player.on('loadedmetadata', (event) => {
+  player.on('loadeddata', (event) => {
           // console.log("load")
           const instance = event.detail.plyr;
-          if(platform!="douyin")
-            updatedanmmu(instance,socket,platform,roomid)
-          });
+          loadingTime = (Date.now()-startTime)/1000
+  });
       
   player.on('pause', (event) => {
       clearInterval(window.timer)
@@ -186,7 +191,7 @@ function createVideo(source,format,platform,roomid) {
   });
 }
 
-function updatedanmmu(instance,socket,platform,roomid)
+function updatedanmmu(socket,platform,roomid)
       {
         timestamp = Date.now()/1000
         switch (true) {
@@ -200,7 +205,7 @@ function updatedanmmu(instance,socket,platform,roomid)
           return;
       }
         
-        senddata = [instance.currentTime,timestamp,targeturl]
+        senddata = [0,timestamp,targeturl]
         var msg = makeData({"data":senddata})
         socket.emit('startDm', msg);
         return false;
