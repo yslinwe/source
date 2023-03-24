@@ -70,7 +70,8 @@ nav{
     margin-right: 25px;
 }
 .nav-left .logo{
-    background-image: url("images/darklogo.png");
+    /* darklogo */
+    background-image: url("https://i.328888.xyz/2023/03/17/KJNKo.png");
     background-size: 160px;
     background-repeat: no-repeat;
     padding: 0px 0px 42px 160px;
@@ -627,6 +628,7 @@ nav{
 .side-video-list .vid-flex p{
     padding-left: 10px;
     color: var(--secondtextcolor);
+    font-size: 0.8rem;
 }
 .side-video-list .vid-left
 {
@@ -635,8 +637,8 @@ nav{
 .side-video-list .vid-left a{
     color: var(--firsttextcolor);
     font-family: "Roboto","Arial",sans-serif;
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 .side-video-list:active
 {
@@ -648,6 +650,7 @@ nav{
 .side-video-list .avatar-img-bg-color img
 {
     border-radius: 50%;
+    object-fit: cover;
 }
 .side-video-list_click
 {
@@ -892,8 +895,8 @@ nav{
     .side-video-list .vid-left a {
         color: var(--firsttextcolor);
         font-family: "Roboto","Arial",sans-serif;
-        font-size: 1.2rem;
-        font-weight: 400;
+        font-size: 0.9rem;
+        font-weight: 600;
     }
     .side-video-list .vid-flex p{
         color: var(--secondtextcolor);
@@ -1091,7 +1094,8 @@ body {
     --rightbarshadow:rgba(255, 255, 255, 0.12)
     }
     .nav-left .logo{
-        background-image: url("../images/darklogo.png");
+        /* darklogo */
+        background-image: url("https://i.328888.xyz/2023/03/17/KJNKo.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
@@ -1126,7 +1130,8 @@ body {
         --rightbarshadow:rgba(0, 0, 0, 0.3);
     }
     .nav-left .logo{
-        background-image: url("../images/lightlogo.png");
+        /* lightlogo */
+        background-image: url("https://i.328888.xyz/2023/03/17/KJIgA.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
@@ -1202,6 +1207,7 @@ body {
     height: 100%;
     max-height: 500px;
     border-radius: 5px;
+    object-fit: cover;
 }
 /* -----------------loading----------------------- */
 

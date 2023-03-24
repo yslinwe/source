@@ -275,7 +275,10 @@ nav{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    object-fit: cover;
+
 }
+
 .subscribed-list a .addedinfo .liveLight{
     position: absolute;
     bottom: 0;

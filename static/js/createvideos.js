@@ -84,7 +84,6 @@ function createVideo(source,format,platform,roomid) {
   switch (true) {
     case format =='m3u':
       // For more Hls.js options, see https://github.com/dailymotion/hls.js
-      console.log("hls播放器")
       var hls = new Hls();
       hls.loadSource(source);
       hls.attachMedia(video);
@@ -96,16 +95,11 @@ function createVideo(source,format,platform,roomid) {
         type: 'flv',
         isLive: true,
         url: source,
-        hasAudio: true,
-        hasVideo:true,
-      },
-      {
-          enableStashBuffer: false,
-          fixAudioTimestampGap:true,
       }
       );
       flvPlayer.attachMediaElement(video);
       flvPlayer.load();
+     
       break;
     default:
       video.src = source;
@@ -145,12 +139,6 @@ function createVideo(source,format,platform,roomid) {
   // }
   const track = video.addTextTrack('subtitles', '中文', 'zh');
   var socket = io();
-  // 心跳包
-  window.setInterval(function() {
-            socket.emit('my_ping');
-        }, 1000);
-  socket.on('my_pong', function() { });
-
   window.onunload=()=>{
     var msg = makeData({"roomid":String(v)})
     socket.emit('stopDm', msg);
@@ -303,6 +291,32 @@ function NetPing(videoUrl) {
     }
 });
 }
+function getOperationSys() {
+  //判断数组中是否包含某字符串 
+  Array.prototype.contains = function(needle) {
+    for (i in this) {
+        if (this[i].indexOf(needle) > 0)
+            return i;
+    }
+    return -1;
+  }
+  var device_type = navigator.userAgent; //获取userAgent信息 
+  var md = new MobileDetect(device_type); //初始化mobile-detect 
+  var os = md.os(); //获取系统 
+  var model = "";
+  if (os == "iOS") { //ios系统的处理 
+    os = md.os() + md.version("iPhone");
+    model = md.mobile();
+  } else if (os == "AndroidOS") { //Android系统的处理 
+    os = md.os() + md.version("Android");
+    var sss = device_type.split(";");
+    var i = sss.contains("Build/");
+    if (i > -1) {
+        model = sss[i].substring(0, sss[i].indexOf("Build/"));
+    }
+  }
+    return model;
+}
 function initVideo()
 {
 // var v = UrlParam.paramValues("v");
@@ -316,23 +330,39 @@ var p = String(UrlParam.paramValues("p"));
 // var loading = document.getElementById("loading");
 // loading.style.display = 'none'
 // createVideo(url,p,v);
-var msg = makeData({"platform":p,'roomid':v})
-
-$.post("/link",msg,function(data){    
-    retMsg = receviceData(data)
+// var OS = getOperationSys()
+// if(OS == 'iPhone'|| OS == 'iPod' || OS == 'iPad')
+// {
+//   format = 'm3u';
+// }
+// else
+// {
+//   format = 'flv';
+// }
+var socket = io();
+format = 'flv';
+var msg =  makeData({"platform":p,'roomid':v,'format':format})
+socket.emit('getlink', msg);
+socket.on('getlink response', function(msg) {
+  // console.log(msg.data)
+  retMsg = receviceData(msg)
     if(retMsg.status==503)
     {
         return
     }
     if(retMsg.status==404)
     {
-        console.alert(data.msg)
+      console.log(retMsg.data)
         return
     }
     var loading = document.getElementById("loading");
     loading.style.display = 'none'
-        data = retMsg.msg
-        createVideo(data['url'],data['format'],p,v);
-    })
+      data = retMsg.data
+      createVideo(data['url'],data['format'],p,v);
+    socket.disconnect()
+    return false
+});
 }
 
+// 初始化视频
+initVideo();

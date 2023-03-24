@@ -60,14 +60,14 @@ $(function(){
                 strHtml +=
                     "<div class='side-video-list'>"
                 // +"<input type='image' img src='' data-src='"+ info["thumbUrl"] +"' class='small-thumbnail'>"
-                +"<a href='" + "play?p="+info["platform"]+"&v="+info["linkid"]+"'class='small-thumbnail'>"
-                +"<div class='box'><img src='' data-src='"+ info["thumbUrl"] +"'></div>"   
+                +"<a id='livethumbLink' href='" + "play?p="+info["platform"]+"&v="+info["linkid"]+"'class='small-thumbnail'>"
+                +"<div class='box'><img id = 'thumbUrl' src='' data-src='"+ info["thumbUrl"] +"'></div>"   
                 +"</a>"
                 +"<div class='vid-info'>"
-                    +"<a href='"+ "play?p="+info["platform"]+"&v="+info["linkid"]+"'>"+info["folderName"]+"</a>"
+                    +"<a id='liveWordLink' href='"+ "play?p="+info["platform"]+"&v="+info["linkid"]+"'>"+info["folderName"]+"</a>"
                     // +"<input type='text' value="+info["name"]+" onclick={OpenVideo('"+info['linkid']+"')} >"
-                    +"<p>"+info["achorname"]+"</p>"
-                    +"<span>"
+                    +"<p id ='achorname'>"+info["achorname"]+"</p>"
+                    +"<span id='liveinfos'>"
                     +"<i></i><p>"+info["totalCount"]+"</p>"
                     +"</span>"
                     +"<p style='background: rgb(204 0 0 / 90%)' class='livestatus'>直播中<p/>"
@@ -89,14 +89,14 @@ $(function(){
                 strHtml +=
                 "<div class='side-video-list'>"
             // +"<input type='image' img src='' data-src='"+ info["thumbUrl"] +"' class='small-thumbnail'>"
-            +"<a href='" + "play?p="+info["platform"]+"&v="+info["linkid"]+"'class='small-thumbnail'>"
-            +"<div class='box'><img src='' data-src='"+ info["thumbUrl"] +"' alt="+info["linkid"]+"></div>"   
+            +"<a id='livethumbLink' href='" + "play?p="+info["platform"]+"&v="+info["linkid"]+"'class='small-thumbnail'>"
+            +"<div class='box'><img id = 'thumbUrl' src='' data-src='"+ info["thumbUrl"] +"' alt="+info["linkid"]+"></div>"   
             +"</a>"
             +"<div class='vid-info'>"
-                +"<a href='"+ "play?p="+info["platform"]+"&v="+info["linkid"]+"'>"+info["folderName"]+"</a>"
+                +"<a id='liveWordLink' href='"+ "play?p="+info["platform"]+"&v="+info["linkid"]+"'>"+info["folderName"]+"</a>"
                 // +"<input type='text' value="+info["name"]+" onclick={OpenVideo('"+info['linkid']+"')} >"
-                +"<p>"+info["achorname"]+"</p>"
-                +"<span>"
+                +"<p id ='achorname'>"+info["achorname"]+"</p>"
+                +"<span id='liveinfos'>"
                 +"<p>上次开播时间: "+info["created_at"]+"</p>"
                 +"</span>"
                 +"<p style='background: #909090' class='livestatus'>未直播<p/>"
@@ -116,42 +116,43 @@ $(function(){
         })
         $sidertip.html(siderHtml);
         $jsontip.html(strHtml);//显示处理后的数据
-        // 初始化视频
-        initVideo();
+  
         lazyImages()
         $("#progress").addClass("done");
         siderControl()
 
         id = sessionStorage.getItem('setIntervalId');
-        // console.log(id)
         if(id!=-1)
         {
             sessionStorage.setItem('setIntervalId',-1);
             clearInterval(id);
-            // console.log("停止更新")
         }
-
+        var socket = io();
+        sideLiveInfos = document.querySelectorAll(".vid-info>#liveinfos")
+        livestatusWords = document.querySelectorAll(".vid-info>.livestatus")
+        livestatusThumbs = document.querySelectorAll("#thumbUrl")
+        achornames = document.querySelectorAll('#achorname')
+        livethumbLinks = document.querySelectorAll('#livethumbLink')
+        liveWordLinks = document.querySelectorAll('#liveWordLink')
         id = setInterval(function(){
-            sideLiveInfos = document.querySelectorAll(".vid-info>span")
-            livestatusWords = document.querySelectorAll(".vid-info>.livestatus")
-            livestatusThumbs = document.querySelectorAll("#sidebar > div > a > div > img")
-            achornames = document.querySelectorAll('#sidebar > div > div > p')
-            
-            var msg = makeData({"name":'index'})
-            $.post("/msg",msg,function(data){    
-                retMsg = receviceData(data)
-                if(retMsg.status==503)
-                {
-                    alert(data.msg)
-                    return
-                }
-                if(retMsg.status==404)
-                {
-                    alert(data.msg)
-                    return
-                }
+            var msg = makeData({"name":"index"})
+            socket.emit('getIndex', msg);
+            return false;
+        },Math.random()*30000+30000)        //(m-n)+n)大于等于n，小于m (60-30)+30 Math.random()*30000+30000
+        socket.on('index response', function(msg) {
+            // console.log(msg.data)
+            retMsg = receviceData(msg)
+              if(retMsg.status==503)
+              {
+                  return
+              }
+              if(retMsg.status==404)
+              {
+                console.log(retMsg.data)
+                  return
+              }
                 addindex = 0
-                $.each(retMsg.msg,function(infoIndex,info)
+                $.each(retMsg.data,function(infoIndex,info)
                 {
                     if(info["linkid"]== fristLinkId)
                     {
@@ -178,28 +179,31 @@ $(function(){
                         livestatusWord = livestatusWords[infoIndex+addindex]
                         livestatusThumb = livestatusThumbs[infoIndex+addindex]
                         achorname = achornames[infoIndex+addindex]
-                        //更新侧边栏视频信息    
-                        if(achorname.innerText==info["achorname"])
+                        livethumbLink = livethumbLinks[infoIndex+addindex]
+                        liveWordLink = liveWordLinks[infoIndex+addindex]
+                            //更新侧边栏视频信息    
+                        
+                        if(info['liveStatus'] == "ON")    
                         {
-                            console.log("更新测边栏信息")
-                            if(info['liveStatus'] == "ON")    
-                            {
-                                sideLiveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
-                                livestatusWord.innerText = "直播中";
-                                livestatusWord.style = "background: rgb(204 0 0 / 90%)";
-                                livestatusThumb.src = info["thumbUrl"];
-                            }
-                            else
-                            {
-                                sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
-                                livestatusWord.innerText = "未直播";
-                                livestatusWord.style = "background: #909090";
-                            }
+                            sideLiveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
+                            livestatusWord.innerText = "直播中";
+                            livestatusWord.style = "background: rgb(204 0 0 / 90%)";
+                            livestatusThumb.src = info["thumbUrl"];
+                            achorname.innerText = info["achorname"];
+                            livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
+                            liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
+                            liveWordLink.innerText = info['folderName']
                         }
+                        else
+                        {
+                            sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                            livestatusWord.innerText = "未直播";
+                            livestatusWord.style = "background: #909090";
+                            achorname.innerText = info["achorname"];
+                        }         
                     }
                 })
-            })
-        },Math.random()*30000+30000) //(m-n)+n)大于等于n，小于m (60-30)+30 
+        })
         sessionStorage.setItem('setIntervalId',id);
     })
 })
