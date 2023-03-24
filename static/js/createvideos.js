@@ -93,7 +93,7 @@ function createVideo(source,format,platform,roomid) {
       const flvPlayer = flvjs.createPlayer(
       {
         type: 'flv',
-        isLive: true,
+        // isLive: true,
         url: source,
       }
       );

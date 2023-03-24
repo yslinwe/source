@@ -9422,12 +9422,12 @@ var MP4Remuxer = /** @class */ (function () {
                     curRefDts = this._audioNextDts;
                 }
                 dtsCorrection = originalDts - curRefDts;
-                if (dtsCorrection <= -maxAudioFramesDrift * refSampleDuration) {
-                    // If we're overlapping by more than maxAudioFramesDrift number of frame, drop this sample
-                    _utils_logger_js__WEBPACK_IMPORTED_MODULE_0__.default.w(this.TAG, "Dropping 1 audio frame (originalDts: " + originalDts + " ms ,curRefDts: " + curRefDts + " ms)  due to dtsCorrection: " + dtsCorrection + " ms overlap.");
-                    continue;
-                }
-                else if (dtsCorrection >= maxAudioFramesDrift * refSampleDuration && this._fillAudioTimestampGap && !_utils_browser_js__WEBPACK_IMPORTED_MODULE_3__.default.safari) {
+                // if (dtsCorrection <= -maxAudioFramesDrift * refSampleDuration) {
+                //     // If we're overlapping by more than maxAudioFramesDrift number of frame, drop this sample
+                //     _utils_logger_js__WEBPACK_IMPORTED_MODULE_0__.default.w(this.TAG, "Dropping 1 audio frame (originalDts: " + originalDts + " ms ,curRefDts: " + curRefDts + " ms)  due to dtsCorrection: " + dtsCorrection + " ms overlap.");
+                //     continue;
+                // }
+                if (dtsCorrection >= maxAudioFramesDrift * refSampleDuration && this._fillAudioTimestampGap && !_utils_browser_js__WEBPACK_IMPORTED_MODULE_3__.default.safari) {
                     // Silent frame generation, if large timestamp gap detected && config.fixAudioTimestampGap
                     needFillSilentFrames = true;
                     // We need to insert silent frames to fill timestamp gap
