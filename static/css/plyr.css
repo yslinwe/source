@@ -160,8 +160,8 @@
 .plyr__control {
 	background: #0000;
 	border: 0;
-	border-radius: 3px;
-	border-radius: var(--plyr-control-radius,3px);
+	border-radius: 4px;
+	border-radius: var(--plyr-control-radius,4px);
 	color: inherit;
 	cursor: pointer;
 	flex-shrink: 0;
@@ -186,9 +186,9 @@
 	outline: 0
 }
 
-.plyr__control.plyr__tab-focus {
-	outline: 3px dotted #00b2ff;
-	outline: var(--plyr-tab-focus-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff))) dotted 3px;
+.plyr__control:focus-visible {
+	outline: 2px dashed #00b2ff;
+	outline: 2px dashed var(--plyr-focus-visible-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff)));
 	outline-offset: 2px
 }
 
@@ -269,8 +269,8 @@ a.plyr__control {
 	animation: plyr-popup .2s ease;
 	background: #ffffffe6;
 	background: var(--plyr-menu-background,#ffffffe6);
-	border-radius: 4px;
-	border-radius: var(--plyr-menu-radius,4px);
+	border-radius: 8px;
+	border-radius: var(--plyr-menu-radius,8px);
 	bottom: 100%;
 	box-shadow: 0 1px 2px #00000026;
 	box-shadow: var(--plyr-menu-shadow,0 1px 2px #00000026);
@@ -359,7 +359,7 @@ a.plyr__control {
 	right: calc(var(--plyr-control-spacing, 10px)*.7*1.5 - var(--plyr-menu-item-arrow-size, 4px))
 }
 
-.plyr__menu__container .plyr__control--forward.plyr__tab-focus:after,.plyr__menu__container .plyr__control--forward:hover:after {
+.plyr__menu__container .plyr__control--forward:focus-visible:after,.plyr__menu__container .plyr__control--forward:hover:after {
 	border-left-color: initial
 }
 
@@ -400,7 +400,7 @@ a.plyr__control {
 	top: 100%
 }
 
-.plyr__menu__container .plyr__control--back.plyr__tab-focus:after,.plyr__menu__container .plyr__control--back:hover:after {
+.plyr__menu__container .plyr__control--back:focus-visible:after,.plyr__menu__container .plyr__control--back:hover:after {
 	border-right-color: initial
 }
 
@@ -447,7 +447,7 @@ a.plyr__control {
 	transform: translateY(-50%) scale(1)
 }
 
-.plyr__menu__container .plyr__control[role=menuitemradio].plyr__tab-focus:before,.plyr__menu__container .plyr__control[role=menuitemradio]:hover:before {
+.plyr__menu__container .plyr__control[role=menuitemradio]:focus-visible:before,.plyr__menu__container .plyr__control[role=menuitemradio]:hover:before {
 	background: #23282f1a
 }
 
@@ -611,21 +611,21 @@ a.plyr__control {
 	outline: 0
 }
 
-.plyr--full-ui input[type=range].plyr__tab-focus::-webkit-slider-runnable-track {
-	outline: 3px dotted #00b2ff;
-	outline: var(--plyr-tab-focus-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff))) dotted 3px;
+.plyr--full-ui input[type=range]:focus-visible::-webkit-slider-runnable-track {
+	outline: 2px dashed #00b2ff;
+	outline: 2px dashed var(--plyr-focus-visible-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff)));
 	outline-offset: 2px
 }
 
-.plyr--full-ui input[type=range].plyr__tab-focus::-moz-range-track {
-	outline: 3px dotted #00b2ff;
-	outline: var(--plyr-tab-focus-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff))) dotted 3px;
+.plyr--full-ui input[type=range]:focus-visible::-moz-range-track {
+	outline: 2px dashed #00b2ff;
+	outline: 2px dashed var(--plyr-focus-visible-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff)));
 	outline-offset: 2px
 }
 
-.plyr--full-ui input[type=range].plyr__tab-focus::-ms-track {
-	outline: 3px dotted #00b2ff;
-	outline: var(--plyr-tab-focus-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff))) dotted 3px;
+.plyr--full-ui input[type=range]:focus-visible::-ms-track {
+	outline: 2px dashed #00b2ff;
+	outline: 2px dashed var(--plyr-focus-visible-color,var(--plyr-color-main,var(--plyr-color-main,#00b2ff)));
 	outline-offset: 2px
 }
 
@@ -671,8 +671,8 @@ a.plyr__control {
 }
 
 .plyr__tooltip {
-	background: #ffffffe6;
-	background: var(--plyr-tooltip-background,#ffffffe6);
+	background: #fff;
+	background: var(--plyr-tooltip-background,#fff);
 	border-radius: 5px;
 	border-radius: var(--plyr-tooltip-radius,5px);
 	bottom: 100%;
@@ -705,8 +705,8 @@ a.plyr__control {
 	border-left: var(--plyr-tooltip-arrow-size,4px) solid #0000;
 	border-right: 4px solid #0000;
 	border-right: var(--plyr-tooltip-arrow-size,4px) solid #0000;
-	border-top: 4px solid #ffffffe6;
-	border-top: var(--plyr-tooltip-arrow-size,4px) solid var(--plyr-tooltip-background,#ffffffe6);
+	border-top: 4px solid #fff;
+	border-top: var(--plyr-tooltip-arrow-size,4px) solid var(--plyr-tooltip-background,#fff);
 	bottom: -4px;
 	bottom: calc(var(--plyr-tooltip-arrow-size, 4px)*-1);
 	content: "";
@@ -718,7 +718,7 @@ a.plyr__control {
 	z-index: 2
 }
 
-.plyr .plyr__control.plyr__tab-focus .plyr__tooltip,.plyr .plyr__control:hover .plyr__tooltip,.plyr__tooltip--visible {
+.plyr .plyr__control:focus-visible .plyr__tooltip,.plyr .plyr__control:hover .plyr__tooltip,.plyr__tooltip--visible {
 	opacity: 1;
 	transform: translate(-50%) scale(1)
 }
@@ -752,7 +752,7 @@ a.plyr__control {
 	transform: translateX(50%)
 }
 
-.plyr__controls>.plyr__control:first-child .plyr__tooltip--visible,.plyr__controls>.plyr__control:first-child+.plyr__control .plyr__tooltip--visible,.plyr__controls>.plyr__control:first-child+.plyr__control.plyr__tab-focus .plyr__tooltip,.plyr__controls>.plyr__control:first-child+.plyr__control:hover .plyr__tooltip,.plyr__controls>.plyr__control:first-child.plyr__tab-focus .plyr__tooltip,.plyr__controls>.plyr__control:first-child:hover .plyr__tooltip,.plyr__controls>.plyr__control:last-child .plyr__tooltip--visible,.plyr__controls>.plyr__control:last-child.plyr__tab-focus .plyr__tooltip,.plyr__controls>.plyr__control:last-child:hover .plyr__tooltip {
+.plyr__controls>.plyr__control:first-child .plyr__tooltip--visible,.plyr__controls>.plyr__control:first-child+.plyr__control .plyr__tooltip--visible,.plyr__controls>.plyr__control:first-child+.plyr__control:focus-visible .plyr__tooltip,.plyr__controls>.plyr__control:first-child+.plyr__control:hover .plyr__tooltip,.plyr__controls>.plyr__control:first-child:focus-visible .plyr__tooltip,.plyr__controls>.plyr__control:first-child:hover .plyr__tooltip,.plyr__controls>.plyr__control:last-child .plyr__tooltip--visible,.plyr__controls>.plyr__control:last-child:focus-visible .plyr__tooltip,.plyr__controls>.plyr__control:last-child:hover .plyr__tooltip {
 	transform: translate(0) scale(1)
 }
 
@@ -892,7 +892,7 @@ a.plyr__control {
 	padding: var(--plyr-control-spacing,10px)
 }
 
-.plyr--audio .plyr__control.plyr__tab-focus,.plyr--audio .plyr__control:hover,.plyr--audio .plyr__control[aria-expanded=true] {
+.plyr--audio .plyr__control:focus-visible,.plyr--audio .plyr__control:hover,.plyr--audio .plyr__control[aria-expanded=true] {
 	background: #00b2ff;
 	background: var(--plyr-audio-control-background-hover,var(--plyr-color-main,var(--plyr-color-main,#00b2ff)));
 	color: #fff;
@@ -935,8 +935,6 @@ a.plyr__control {
 }
 
 .plyr--video {
-	background: #000;
-	background: var(--plyr-video-background,var(--plyr-video-background,#000));
 	overflow: hidden
 }
 
@@ -947,6 +945,7 @@ a.plyr__control {
 .plyr__video-wrapper {
 	background: #000;
 	background: var(--plyr-video-background,var(--plyr-video-background,#000));
+	border-radius: inherit;
 	height: 100%;
 	margin: auto;
 	overflow: hidden;
@@ -1015,7 +1014,7 @@ a.plyr__control {
 	transform: translateY(100%)
 }
 
-.plyr--video .plyr__control.plyr__tab-focus,.plyr--video .plyr__control:hover,.plyr--video .plyr__control[aria-expanded=true] {
+.plyr--video .plyr__control:focus-visible,.plyr--video .plyr__control:hover,.plyr--video .plyr__control[aria-expanded=true] {
 	background: #00b2ff;
 	background: var(--plyr-video-control-background-hover,var(--plyr-color-main,var(--plyr-color-main,#00b2ff)));
 	color: #fff;
@@ -1215,10 +1214,10 @@ a.plyr__control {
 }
 
 .plyr__preview-thumb {
-	background-color: #ffffffe6;
-	background-color: var(--plyr-tooltip-background,#ffffffe6);
-	border-radius: 5px;
-	border-radius: var(--plyr-tooltip-radius,5px);
+	background-color: #fff;
+	background-color: var(--plyr-tooltip-background,#fff);
+	border-radius: 8px;
+	border-radius: var(--plyr-menu-radius,8px);
 	bottom: 100%;
 	box-shadow: 0 1px 2px #00000026;
 	box-shadow: var(--plyr-tooltip-shadow,0 1px 2px #00000026);
@@ -1244,8 +1243,8 @@ a.plyr__control {
 	border-left: var(--plyr-tooltip-arrow-size,4px) solid #0000;
 	border-right: 4px solid #0000;
 	border-right: var(--plyr-tooltip-arrow-size,4px) solid #0000;
-	border-top: 4px solid #ffffffe6;
-	border-top: var(--plyr-tooltip-arrow-size,4px) solid var(--plyr-tooltip-background,#ffffffe6);
+	border-top: 4px solid #fff;
+	border-top: var(--plyr-tooltip-arrow-size,4px) solid var(--plyr-tooltip-background,#fff);
 	bottom: -4px;
 	bottom: calc(var(--plyr-tooltip-arrow-size, 4px)*-1);
 	content: "";
@@ -1259,8 +1258,8 @@ a.plyr__control {
 
 .plyr__preview-thumb__image-container {
 	background: #c1c8d1;
-	border-radius: 4px;
-	border-radius: calc(var(--plyr-tooltip-radius, 5px) - 1px);
+	border-radius: 7px;
+	border-radius: calc(var(--plyr-menu-radius, 8px) - 1px);
 	overflow: hidden;
 	position: relative;
 	z-index: 0
@@ -1289,10 +1288,10 @@ a.plyr__control {
 .plyr__preview-thumb__time-container {
 	background: linear-gradient(#0000,#000000bf);
 	background: var(--plyr-video-controls-background,linear-gradient(#0000,#000000bf));
-	border-bottom-left-radius: 4px;
-	border-bottom-left-radius: calc(var(--plyr-tooltip-radius, 5px) - 1px);
-	border-bottom-right-radius: 4px;
-	border-bottom-right-radius: calc(var(--plyr-tooltip-radius, 5px) - 1px);
+	border-bottom-left-radius: 7px;
+	border-bottom-left-radius: calc(var(--plyr-menu-radius, 8px) - 1px);
+	border-bottom-right-radius: 7px;
+	border-bottom-right-radius: calc(var(--plyr-menu-radius, 8px) - 1px);
 	bottom: 0;
 	left: 0;
 	line-height: 1.1;
