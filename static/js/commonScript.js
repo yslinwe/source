@@ -672,14 +672,19 @@ function updateInfoIndexAll(data)
                     livestatusWord.innerText = "未直播";
                     livestatusWord.style = "background: #909090";
                 }
-                var imgSrc = livestatusThumb.getAttribute('data-src');
-                if(imgSrc)
+                var img1Src = livestatusThumb.getAttribute('data-src');
+                if(img1Src)
                 {
                     livestatusThumb.removeAttribute('data-src');
                 }
+                var img2Src = avatarImg.getAttribute('data-src');
+                if(img2Src)
+                {
+                    avatarImg.removeAttribute('data-src');
+                }
                 livestatusThumb.src = info["thumbUrl"];  
-                achorname.innerText = info['achorname']
                 avatarImg.src = info["avatar-img"]
+                achorname.innerText = info['achorname']
                 livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                 liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                 liveWordLink.innerText = info["folderName"]   
@@ -805,10 +810,15 @@ function updateInfoIndex(data)
                     livestatusWord.innerText = "未直播";
                     livestatusWord.style = "background: #909090";
                 }
-                var imgSrc = livestatusThumb.getAttribute('data-src');
-                if(imgSrc)
+                var img1Src = livestatusThumb.getAttribute('data-src');
+                if(img1Src)
                 {
                     livestatusThumb.removeAttribute('data-src');
+                }
+                var img2Src = avatarImg.getAttribute('data-src');
+                if(img2Src)
+                {
+                    avatarImg.removeAttribute('data-src');
                 }
                 livestatusThumb.src = info["thumbUrl"];    
                 achorname.innerText = info['achorname']

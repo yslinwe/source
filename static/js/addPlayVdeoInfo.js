@@ -188,35 +188,25 @@ $(function(){
                             sideLiveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
                             livestatusWord.innerText = "直播中";
                             livestatusWord.style = "background: rgb(204 0 0 / 90%)";
-                            var imgSrc = livestatusThumb.getAttribute('data-src');
-                            if(imgSrc)
-                            {
-                                livestatusThumb.removeAttribute('data-src');
-                            }
-                            livestatusThumb.src = info["thumbUrl"];
-                            achorname.innerText = info["achorname"];
-                            livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
-                            liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
-                            liveWordLink.innerText = info['folderName']
+                           
                         }
                         else
                         {
                             sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
                             livestatusWord.innerText = "未直播";
                             livestatusWord.style = "background: #909090";
-                            
-                            var imgSrc = livestatusThumb.getAttribute('data-src');
-                            if(imgSrc)
-                            {
-                                livestatusThumb.removeAttribute('data-src');
-                            }
-                            livestatusThumb.src = info["thumbUrl"];
 
-                            achorname.innerText = info["achorname"];
-                            livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
-                            liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
-                            liveWordLink.innerText = info['folderName']
-                        }         
+                        }  
+                        var imgSrc = livestatusThumb.getAttribute('data-src');
+                        if(imgSrc)
+                        {
+                            livestatusThumb.removeAttribute('data-src');
+                        }
+                        livestatusThumb.src = info["thumbUrl"];
+                        achorname.innerText = info["achorname"];
+                        livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
+                        liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
+                        liveWordLink.innerText = info['folderName']       
                     }
                 })
         })
