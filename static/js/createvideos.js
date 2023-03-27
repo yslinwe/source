@@ -167,7 +167,7 @@ function createVideo(source,format,platform,roomid) {
         }
         // console.log("更新",retMsg.msg['content'].length,retMsg.msg['from'], retMsg.msg['to'])
         $.each(retMsg.data['content'],function(infoIndex,info){
-          track.addCue(new VTTCue(retMsg.data['from']-loadingTime+0.1, retMsg.data['to']-loadingTime+0.1, info));
+          track.addCue(new VTTCue(retMsg.data['from']-loadingTime+0.3, retMsg.data['to']-loadingTime+0.3, info));
         })
     });
   player.on('loadeddata', (event) => {
