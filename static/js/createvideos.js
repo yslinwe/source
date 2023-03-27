@@ -165,7 +165,7 @@ function createVideo(source,format,platform,roomid) {
           console.log(retMsg.data)
             return
         }
-        costTime = (Data.now()-sendTime)/1000
+        costTime = (Date.now()-sendTime)/1000
         // console.log("更新",retMsg.msg['content'].length,retMsg.msg['from'], retMsg.msg['to'])
         $.each(retMsg.data['content'],function(infoIndex,info){
           track.addCue(new VTTCue(retMsg.data['from']-loadingTime+costTime, retMsg.data['to']-loadingTime+costTime, info));
