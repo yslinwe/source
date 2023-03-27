@@ -165,9 +165,10 @@ function createVideo(source,format,platform,roomid) {
           console.log(retMsg.data)
             return
         }
+        costTime = (Data.now()-sendTime)/1000
         // console.log("更新",retMsg.msg['content'].length,retMsg.msg['from'], retMsg.msg['to'])
         $.each(retMsg.data['content'],function(infoIndex,info){
-          track.addCue(new VTTCue(retMsg.data['from']-loadingTime+0.3, retMsg.data['to']-loadingTime+0.3, info));
+          track.addCue(new VTTCue(retMsg.data['from']-loadingTime+costTime, retMsg.data['to']-loadingTime+costTime, info));
         })
     });
   player.on('loadeddata', (event) => {
@@ -183,7 +184,9 @@ function createVideo(source,format,platform,roomid) {
       const instance = event.detail.plyr;
       if(platform!='douyin')
       // 更新字幕
-      window.timer = setInterval(function() {updatetrack(instance,socket,track,roomid);},500) 
+      window.timer = setInterval(function() {
+        updatetrack(instance,socket,track,roomid);
+      },500) 
   });    
   player.on('timeupdate', (event) => {
       const instance = event.detail.plyr;
@@ -261,6 +264,7 @@ function updatetrack(instance,socket,track,roomid)
         //     })
         // })
         var msg = makeData({"roomid":roomid,'currentTime':instance.currentTime})
+        sendTime = Date.now()
         socket.emit('getDm', msg);
         return false;
       }
