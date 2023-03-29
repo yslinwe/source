@@ -139,20 +139,19 @@ function createVideo(source,format,platform,roomid) {
   //       var hls = new Hls();
   //       hls.loadSource(source);
   //       hls.attachMedia(video);
-  // }
+  // }]
+  // -----------全局变量-------------------------
   const track = video.addTextTrack('subtitles', '中文', 'zh');
   var socket = io();
+  dmList = []
+  // ------------------------------------
 
   window.onunload=()=>{
     var msg = makeData({"roomid":String(v)})
     socket.emit('stopDm', msg);
     return false;
   }
-  if(platform!="douyin")
-  {
-    startTime = Date.now()
-    updatedanmmu(socket,platform,roomid)
-  }
+  
   socket.on('getDm response', function(msg) {
       // console.log(msg.data)
       retMsg = receviceData(msg)
@@ -162,19 +161,34 @@ function createVideo(source,format,platform,roomid) {
         }
         if(retMsg.status==404)
         {
-          console.log(retMsg.data)
+          // console.log(retMsg.data)
             return
         }
-        costTime = (Date.now()-sendTime)/1000
+        // cueslen = track.cues.length
+        // if(cueslen>=8)
+        // {
+        //   for (let index = 0; 0!=track.cues.length; index++) {
+        //     var element = track.cues[0];
+        //     if(element.startTime+0.1<player.currentTime)
+        //       track.removeCue(element)
+        //     else 
+        //       break;
+        //   }
+        // }
+        dmList.push(retMsg.data)
         // console.log("更新",retMsg.msg['content'].length,retMsg.msg['from'], retMsg.msg['to'])
-        $.each(retMsg.data['content'],function(infoIndex,info){
-          track.addCue(new VTTCue(retMsg.data['from']-loadingTime+costTime, retMsg.data['to']-loadingTime+costTime, info));
-        })
+        // console.log(track.cues)
+        // $.each(retMsg.data['content'],function(infoIndex,info){
+        // })
+        
     });
   player.on('loadeddata', (event) => {
           // console.log("load")
           const instance = event.detail.plyr;
-          loadingTime = (Date.now()-startTime)/1000
+          if(platform!="douyin")
+          {
+            updatedanmmu(instance,socket,platform,roomid)
+          }
   });
       
   player.on('pause', (event) => {
@@ -182,13 +196,14 @@ function createVideo(source,format,platform,roomid) {
   });
   player.on('play', (event) => {
       const instance = event.detail.plyr;
-      if(platform!='douyin')
       // 更新字幕
+      if(platform!='douyin')
       window.timer = setInterval(function() {
         updatetrack(instance,socket,track,roomid);
       },500) 
   });    
   player.on('timeupdate', (event) => {
+      showTrack(dmList,track)
       const instance = event.detail.plyr;
       if(instance.duration - instance.currentTime < 2)
       {
@@ -196,8 +211,55 @@ function createVideo(source,format,platform,roomid) {
       }
   });
 }
-
-function updatedanmmu(socket,platform,roomid)
+function showTrack(dmList,track)
+{
+  // 清空轨道
+  for (let index = 0; 0!=track.cues.length; index++) {
+    var element = track.cues[0];
+    track.removeCue(element)
+  }
+  showNum = 0
+  var nowtime = Date.now()/1000
+  if(dmList.length>8)
+  {
+    for (let index = 0; index < dmList.length; index++) {
+      var element = dmList[showNum];
+      if(element['from']<=player.currentTime)//显示
+      {
+        showNum+=1
+      }
+      else
+      {
+        //未显示 不处理
+        break
+      }
+      if(showNum>8)
+      {
+        dmList.shift();
+        showNum -= 1;
+      }
+    }
+  }
+  console.log("showNum",showNum)
+  costTime = (Date.now()/1000 - sendTime)
+  if(showNum==0)
+  {
+    for (let index = 0; index < dmList.length; index++)
+    {
+      var element = dmList[index];
+      track.addCue(new VTTCue(element['from']-costTime, 3600, element['content']));
+    }
+  }
+  else
+  {
+    for (let index = 0; index < showNum; index++)
+    { 
+        var element = dmList[index];
+        track.addCue(new VTTCue(element['from']-costTime, 3600, element['content']));
+    }
+  }
+}
+function updatedanmmu(instance,socket,platform,roomid)
       {
         timestamp = Date.now()/1000
         switch (true) {
@@ -211,7 +273,7 @@ function updatedanmmu(socket,platform,roomid)
           return;
       }
         
-        senddata = [0,timestamp,targeturl]
+        senddata = [instance.currentTime,timestamp,targeturl]
         var msg = makeData({"data":senddata})
         socket.emit('startDm', msg);
         return false;
@@ -263,8 +325,8 @@ function updatetrack(instance,socket,track,roomid)
         //       track.addCue(new VTTCue(retMsg.msg['from'], retMsg.msg['to'], info));
         //     })
         // })
-        var msg = makeData({"roomid":roomid,'currentTime':instance.currentTime})
-        sendTime = Date.now()
+        sendTime = Date.now()/1000
+        var msg = makeData({"roomid":roomid,'currentTime':instance.currentTime,'sendTime':sendTime})
         socket.emit('getDm', msg);
         return false;
       }
