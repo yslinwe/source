@@ -175,6 +175,8 @@ function createVideo(source,format,platform,roomid) {
         //       break;
         //   }
         // }
+        costTime = (Date.now()/1000 - sendTime)
+        retMsg.data['costTime'] = costTime
         dmList.push(retMsg.data)
         // console.log("更新",retMsg.msg['content'].length,retMsg.msg['from'], retMsg.msg['to'])
         // console.log(track.cues)
@@ -241,13 +243,12 @@ function showTrack(dmList,track)
     }
   }
   console.log("showNum",showNum)
-  costTime = (Date.now()/1000 - sendTime)
   if(showNum==0)
   {
     for (let index = 0; index < dmList.length; index++)
     {
       var element = dmList[index];
-      track.addCue(new VTTCue(element['from']-costTime, 3600, element['content']));
+      track.addCue(new VTTCue(element['from']-element['costTime'], 3600, element['content']));
     }
   }
   else
@@ -255,7 +256,7 @@ function showTrack(dmList,track)
     for (let index = 0; index < showNum; index++)
     { 
         var element = dmList[index];
-        track.addCue(new VTTCue(element['from']-costTime, 3600, element['content']));
+        track.addCue(new VTTCue(element['from']-element['costTime'], 3600, element['content']));
     }
   }
 }
