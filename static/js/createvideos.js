@@ -147,6 +147,12 @@ function createVideo(source,format,platform,roomid) {
   var socket = io();
   dmList = []
   // ------------------------------------
+  // -----------心跳包-----------
+  window.setInterval(function() {
+    socket.emit('my_ping');
+}, 1000);
+socket.on('my_pong', function() { });
+// ------------------------------------
 
   window.onunload=()=>{
     var msg = makeData({"roomid":String(v)})
@@ -214,6 +220,17 @@ function createVideo(source,format,platform,roomid) {
         instance.speed = 1
       }
   });
+  flvPlayer.on(flvjs.Events.ERROR, (e) => {
+    // destroy
+    flvPlayer.pause();
+    flvPlayer.unload();
+    flvPlayer.detachMediaElement();
+    flvPlayer.destroy();
+    flvPlayer = null;
+  
+    // 进行重建的逻辑，这里不再展开
+    initVideo();
+  });
 }
 function showTrack(dmList,track)
 {
@@ -223,7 +240,6 @@ function showTrack(dmList,track)
     track.removeCue(element)
   }
   showNum = 0
-  var nowtime = Date.now()/1000
   if(dmList.length>8)
   {
     for (let index = 0; index < dmList.length; index++) {
