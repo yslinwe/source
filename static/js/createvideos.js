@@ -104,7 +104,17 @@ function createVideo(source,format,platform,roomid) {
       );
       flvPlayer.attachMediaElement(video);
       flvPlayer.load();
-     
+      flvPlayer.on(flvjs.Events.ERROR, (e) => {
+        // destroy
+        flvPlayer.pause();
+        flvPlayer.unload();
+        flvPlayer.detachMediaElement();
+        flvPlayer.destroy();
+        flvPlayer = null;
+      
+        // 进行重建的逻辑，这里不再展开
+        initVideo();
+      });
       break;
     default:
       video.src = source;
@@ -220,17 +230,7 @@ socket.on('my_pong', function() { });
         instance.speed = 1
       }
   });
-  flvPlayer.on(flvjs.Events.ERROR, (e) => {
-    // destroy
-    flvPlayer.pause();
-    flvPlayer.unload();
-    flvPlayer.detachMediaElement();
-    flvPlayer.destroy();
-    flvPlayer = null;
-  
-    // 进行重建的逻辑，这里不再展开
-    initVideo();
-  });
+
 }
 function showTrack(dmList,track)
 {
