@@ -9422,9 +9422,9 @@ var MP4Remuxer = /** @class */ (function () {
                     curRefDts = this._audioNextDts;
                 }
                 dtsCorrection = originalDts - curRefDts;
-                // if (dtsCorrection <= -maxAudioFramesDrift * refSampleDuration) {
+                // if (Math.abs(dtsCorrection) > 100 * refSampleDuration) {
                 //     // If we're overlapping by more than maxAudioFramesDrift number of frame, drop this sample
-                //     _utils_logger_js__WEBPACK_IMPORTED_MODULE_0__.default.w(this.TAG, "Dropping 1 audio frame (originalDts: " + originalDts + " ms ,curRefDts: " + curRefDts + " ms)  due to dtsCorrection: " + dtsCorrection + " ms overlap.");
+                //     _utils_logger_js__WEBPACK_IMPORTED_MODULE_0__.default.w(this.TAG, "Dropping 1 audio frame (refSampleDuration"+refSampleDuration+"originalDts: " + originalDts + " ms ,curRefDts: " + curRefDts + " ms)  due to dtsCorrection: " + dtsCorrection + " ms overlap.");
                 //     continue;
                 // }
                 if (dtsCorrection >= maxAudioFramesDrift * refSampleDuration && this._fillAudioTimestampGap && !_utils_browser_js__WEBPACK_IMPORTED_MODULE_3__.default.safari) {

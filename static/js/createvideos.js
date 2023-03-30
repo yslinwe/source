@@ -97,6 +97,8 @@ function createVideo(source,format,platform,roomid) {
         url: source,
       },
       {
+        enableStashBuffer:false,
+        enableWorker:false,
         autoCleanupSourceBuffer:true,
       }
       );
@@ -242,7 +244,6 @@ function showTrack(dmList,track)
       }
     }
   }
-  console.log("showNum",showNum)
   if(showNum==0)
   {
     for (let index = 0; index < dmList.length; index++)
