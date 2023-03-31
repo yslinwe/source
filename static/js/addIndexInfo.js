@@ -166,15 +166,21 @@ $(function(){
                 var img1Src = livestatusThumb.getAttribute('data-src');
                 if(img1Src)
                 {
-                    livestatusThumb.removeAttribute('data-src');
+                    livestatusThumb.setAttribute('data-src',info["thumbUrl"]);
+                }
+                else
+                {
+                    livestatusThumb.src = info["thumbUrl"];
                 }
                 var img2Src = avatarImg.getAttribute('data-src');
                 if(img2Src)
                 {
-                    avatarImg.removeAttribute('data-src');
+                    avatarImg.setAttribute('data-src',info["thumbUrl"]);
                 }
-                livestatusThumb.src = info["thumbUrl"];
-                avatarImg.src = info["avatar-img"]
+                else
+                {
+                    avatarImg.src = info["avatar-img"]
+                }
                 achorname.innerText = info['achorname']
                 livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                 liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]

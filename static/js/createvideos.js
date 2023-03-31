@@ -240,42 +240,41 @@ function showTrack(dmList,track)
     track.removeCue(element)
   }
   showNum = 0
-  if(dmList.length>8)
-  {
-    for (let index = 0; index < dmList.length; index++) {
-      var element = dmList[showNum];
-      if(element['from']<=player.currentTime)//显示
-      {
-        showNum+=1
-      }
-      else
-      {
-        //未显示 不处理
-        break
-      }
-      if(showNum>8)
-      {
-        dmList.shift();
-        showNum -= 1;
-      }
-    }
-  }
-  if(showNum==0)
-  {
-    for (let index = 0; index < dmList.length; index++)
+  
+  for (let index = 0; index < dmList.length; index++) {
+    var element = dmList[showNum];
+    if(element['from']<=player.currentTime)//显示
     {
-      var element = dmList[index];
-      track.addCue(new VTTCue(element['from']-element['costTime'], 3600, element['content']));
+      showNum+=1
+    }
+    else
+    {
+      //未显示 不处理
+      break
+    }
+    if(showNum>8)
+    {
+      dmList.shift();
+      showNum -= 1;
     }
   }
-  else
-  {
-    for (let index = 0; index < showNum; index++)
+  for (let index = 0; index < showNum; index++)
     { 
         var element = dmList[index];
         track.addCue(new VTTCue(element['from']-element['costTime'], 3600, element['content']));
     }
-  }
+  // if(showNum==0)
+  // {
+  //   for (let index = 0; index < dmList.length; index++)
+  //   {
+  //     var element = dmList[index];
+  //     track.addCue(new VTTCue(element['from']-element['costTime'], 3600, element['content']));
+  //   }
+  // }
+  // else
+  // {
+    
+  // }
 }
 function updatedanmmu(instance,socket,platform,roomid)
       {

@@ -490,7 +490,6 @@ function updateIndexPlaySideAll(data)
                             sideLiveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
                             livestatusWord.innerText = "直播中";
                             livestatusWord.style = "background: rgb(204 0 0 / 90%)";
-                            livestatusThumb.src = info["thumbUrl"];
                             achorname.innerText = info["achorname"];
                             livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
                             liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
@@ -501,12 +500,20 @@ function updateIndexPlaySideAll(data)
                             sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
                             livestatusWord.innerText = "未直播";
                             livestatusWord.style = "background: #909090";
-                            livestatusThumb.src = info["thumbUrl"];
                             achorname.innerText = info["achorname"];
                             livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
                             liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
                             liveWordLink.innerText = info['folderName']
-                        }         
+                        }  
+                        var imgSrc = livestatusThumb.getAttribute('data-src');
+                        if(imgSrc)
+                        {
+                            livestatusThumb.setAttribute('data-src',info["thumbUrl"]);
+                        }
+                        else
+                        {
+                            livestatusThumb.src = info["thumbUrl"];
+                        }       
                     }
                 })
         })
@@ -664,9 +671,7 @@ function updateInfoIndexAll(data)
                     liveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
                     livestatusWord.innerText = "直播中";
                     livestatusWord.style = "background: rgb(204 0 0 / 90%)";
-                    livestatusThumb.src = info["thumbUrl"];
                     achorname.innerText = info['achorname']
-                    avatarImg.src = info["avatar-img"]
                     livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.innerText = info["folderName"] 
@@ -676,14 +681,29 @@ function updateInfoIndexAll(data)
                     liveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
                     livestatusWord.innerText = "未直播";
                     livestatusWord.style = "background: #909090";
-                    livestatusThumb.src = info["thumbUrl"];
                     achorname.innerText = info['achorname'];
-                    avatarImg.src = info["avatar-img"]
                     livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.innerText = info["folderName"] 
                 }
-                    
+                var img1Src = livestatusThumb.getAttribute('data-src');
+                if(img1Src)
+                {
+                    livestatusThumb.setAttribute('data-src',info["thumbUrl"]);
+                }
+                else
+                {
+                    livestatusThumb.src = info["thumbUrl"];
+                }
+                var img2Src = avatarImg.getAttribute('data-src');
+                if(img2Src)
+                {
+                    avatarImg.setAttribute('data-src',info["thumbUrl"]);
+                }
+                else
+                {
+                    avatarImg.src = info["avatar-img"]
+                }       
             })
         });
     sessionStorage.setItem('setIntervalId',id);
@@ -799,9 +819,7 @@ function updateInfoIndex(data)
                     liveInfo.innerHTML = "<i></i><p>"+info["totalCount"]+"</p>";
                     livestatusWord.innerText = "直播中";
                     livestatusWord.style = "background: rgb(204 0 0 / 90%)";
-                    livestatusThumb.src = info["thumbUrl"];
                     achorname.innerText = info['achorname']
-                    avatarImg.src = info["avatar-img"]
                     livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.innerText = info["folderName"] 
@@ -811,14 +829,29 @@ function updateInfoIndex(data)
                     liveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
                     livestatusWord.innerText = "未直播";
                     livestatusWord.style = "background: #909090";
-                    livestatusThumb.src = info["thumbUrl"];
                     achorname.innerText = info['achorname'];
-                    avatarImg.src = info["avatar-img"]
                     livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"]
                     liveWordLink.innerText = info["folderName"] 
                 }
-                    
+                var img1Src = livestatusThumb.getAttribute('data-src');
+                if(img1Src)
+                {
+                    livestatusThumb.setAttribute('data-src',info["thumbUrl"]);
+                }
+                else
+                {
+                    livestatusThumb.src = info["thumbUrl"];
+                }
+                var img2Src = avatarImg.getAttribute('data-src');
+                if(img2Src)
+                {
+                    avatarImg.setAttribute('data-src',info["thumbUrl"]);
+                }
+                else
+                {
+                    avatarImg.src = info["avatar-img"]
+                }    
             })
           });
         sessionStorage.setItem('setIntervalId',id);

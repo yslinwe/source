@@ -200,9 +200,12 @@ $(function(){
                         var imgSrc = livestatusThumb.getAttribute('data-src');
                         if(imgSrc)
                         {
-                            livestatusThumb.removeAttribute('data-src');
+                            livestatusThumb.setAttribute('data-src',info["thumbUrl"]);
                         }
-                        livestatusThumb.src = info["thumbUrl"];
+                        else
+                        {
+                            livestatusThumb.src = info["thumbUrl"];
+                        }
                         achorname.innerText = info["achorname"];
                         livethumbLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
                         liveWordLink.href = 'play?p='+info["platform"]+'&v='+info["linkid"];
