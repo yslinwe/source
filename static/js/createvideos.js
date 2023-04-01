@@ -124,9 +124,7 @@ function createVideo(source,format,platform,roomid) {
         flvPlayer.pause();
         flvPlayer.unload();
         flvPlayer.detachMediaElement();
-        flvPlayer.destroy();
-        flvPlayer = null;
-      
+        flvPlayer.destroy();      
         // 进行重建的逻辑，这里不再展开
         initVideo();
       });
@@ -243,7 +241,7 @@ socket.on('my_pong', function() { });
       const instance = event.detail.plyr;
       duration = Date.now()/1000 - videoStartTime
       instance.setduration=duration
-      if(duration - instance.currentTime < 2)
+      if(duration - instance.currentTime < 0.1)
       {
         instance.speed = 1
       }
