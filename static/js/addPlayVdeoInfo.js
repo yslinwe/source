@@ -203,7 +203,7 @@ $(function(){
                             livestatusThumb.setAttribute('data-src',info["thumbUrl"]);
                         }
                         else
-                        {
+                        {                            
                             livestatusThumb.src = info["thumbUrl"];
                         }
                         achorname.innerText = info["achorname"];

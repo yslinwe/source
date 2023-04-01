@@ -2,9 +2,9 @@ function createVideo(source,format,platform,roomid) {
   const controls = [
     'play-large', // The large play button in the center
     // 'restart', // Restart playback
-    // 'rewind', // Rewind by the seek time (default 10 seconds)
+    'rewind', // Rewind by the seek time (default 10 seconds)
     'play', // Play/pause playback
-    // 'fast-forward', // Fast forward by the seek time (default 10 seconds)
+    'fast-forward', // Fast forward by the seek time (default 10 seconds)
     'progress', // The progress bar and scrubber for playback and buffering
     'current-time', // The current time of playback
     'duration', // The full duration of the media
@@ -79,7 +79,7 @@ function createVideo(source,format,platform,roomid) {
   player.on('stalled',(event)=>{
     initVideo();
   });
-  var video = document.querySelector('video');
+  var video = document.querySelector('#player');
   console.log(format)
   switch (true) {
     case format =='m3u':
@@ -93,7 +93,6 @@ function createVideo(source,format,platform,roomid) {
       const flvPlayer = flvjs.createPlayer(
       {
         type: 'flv',
-        isLive: true,
         url: source,
       },
       {
@@ -104,6 +103,22 @@ function createVideo(source,format,platform,roomid) {
       );
       flvPlayer.attachMediaElement(video);
       flvPlayer.load();
+      // buttonSeeking = document.getElementById('seeking')
+      // buttonSeeking.addEventListener('click',function()
+      // {
+      //   console.log("后退")
+      //   flvPlayer.currentTime = (player.currentTime-10);
+      //   console.log("后退")
+      // })
+     
+      // rewind = document.querySelector('[data-plyr="rewind"]')
+      // rewind.addEventListener('click', () => {
+      //   flvPlayer.currentTime -= 10;
+      // });
+      // forward = document.querySelector('[data-plyr="fast-forward"]')
+      // forward.addEventListener('click', () => {
+      //   flvPlayer.currentTime += 10;
+      // });
       flvPlayer.on(flvjs.Events.ERROR, (e) => {
         // destroy
         flvPlayer.pause();
@@ -209,6 +224,7 @@ socket.on('my_pong', function() { });
           {
             updatedanmmu(instance,socket,platform,roomid)
           }
+          videoStartTime =Date.now()/1000
   });
       
   player.on('pause', (event) => {
@@ -225,12 +241,13 @@ socket.on('my_pong', function() { });
   player.on('timeupdate', (event) => {
       showTrack(dmList,track)
       const instance = event.detail.plyr;
-      if(instance.duration - instance.currentTime < 2)
+      duration = Date.now()/1000 - videoStartTime
+      instance.setduration=duration
+      if(duration - instance.currentTime < 2)
       {
         instance.speed = 1
       }
   });
-
 }
 function showTrack(dmList,track)
 {

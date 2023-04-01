@@ -7646,6 +7646,7 @@ typeof navigator === "object" && (function (global, factory) {
        * @param {Number} seekTime - how far to rewind in seconds. Defaults to the config.seekTime
        */
       _defineProperty$1(this, "rewind", seekTime => {
+        
         this.currentTime -= is.number(seekTime) ? seekTime : this.config.seekTime;
       });
       /**
@@ -8231,9 +8232,16 @@ typeof navigator === "object" && (function (global, factory) {
       const duration = !is.number(realDuration) || realDuration === Infinity ? 0 : realDuration;
 
       // If config duration is funky, use regular duration
-      return fauxDuration || duration;
+      return fauxDuration;
     }
-
+     /**
+     * Set the player duration
+     * @param {Number} timevalue
+     */
+    set setduration(timevalue)
+    {
+      this.config.duration = timevalue;
+    }
     /**
      * Set the player volume
      * @param {Number} value - must be between 0 and 1. Defaults to the value from local storage and config.volume if not set in storage
