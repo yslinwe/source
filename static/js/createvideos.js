@@ -195,25 +195,9 @@ socket.on('my_pong', function() { });
           // console.log(retMsg.data)
             return
         }
-        // cueslen = track.cues.length
-        // if(cueslen>=8)
-        // {
-        //   for (let index = 0; 0!=track.cues.length; index++) {
-        //     var element = track.cues[0];
-        //     if(element.startTime+0.1<player.currentTime)
-        //       track.removeCue(element)
-        //     else 
-        //       break;
-        //   }
-        // }
         costTime = (Date.now()/1000 - sendTime)
         retMsg.data['costTime'] = costTime
         dmList.push(retMsg.data)
-        // console.log("更新",retMsg.msg['content'].length,retMsg.msg['from'], retMsg.msg['to'])
-        // console.log(track.cues)
-        // $.each(retMsg.data['content'],function(infoIndex,info){
-        // })
-        
     });
   player.on('loadeddata', (event) => {
           // console.log("load")
@@ -235,16 +219,22 @@ socket.on('my_pong', function() { });
       window.timer = setInterval(function() {
         updatetrack(instance,socket,track,roomid);
       },500) 
-  });    
+  }); 
+  
   player.on('timeupdate', (event) => {
       showTrack(dmList,track)
-      const instance = event.detail.plyr;
-      duration = Date.now()/1000 - videoStartTime
-      instance.setduration=duration
-      if(duration - instance.currentTime < 0.1)
-      {
-        instance.speed = 1
-      }
+      try {
+        const instance = event.detail.plyr;
+        duration = Date.now()/1000 - videoStartTime
+        instance.setduration=duration
+        if(duration - instance.currentTime < 0.1)
+        {
+          instance.speed = 1
+        }
+      } catch (error) {
+        console.log(error)
+      }  
+    
   });
 }
 function showTrack(dmList,track)
