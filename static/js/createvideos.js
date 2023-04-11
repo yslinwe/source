@@ -99,6 +99,8 @@ function createVideo(source,format,platform,roomid) {
         enableStashBuffer:false,
         enableWorker:false,
         autoCleanupSourceBuffer:true,
+        autoCleanupMaxBackwardDuration:10800, //60*60*3
+        autoCleanupMinBackwardDuration:7200, //60*60*2
       }
       );
       flvPlayer.attachMediaElement(video);
@@ -211,18 +213,24 @@ socket.on('my_pong', function() { });
       
   player.on('pause', (event) => {
       clearInterval(window.timer)
+      clearInterval(window.showTracktimer)
   });
   player.on('play', (event) => {
       const instance = event.detail.plyr;
       // 更新字幕
       if(platform!='douyin')
-      window.timer = setInterval(function() {
-        updatetrack(instance,socket,track,roomid);
-      },500) 
+      {
+        window.timer = setInterval(function() {
+          updatetrack(instance,socket,track,roomid);
+        },500) 
+        window.showTracktimer = setInterval(function() {
+          showTrack(dmList,player,track)
+        },300)
+      }
   }); 
-  
+ 
+
   player.on('timeupdate', (event) => {
-      showTrack(dmList,track)
       try {
         const instance = event.detail.plyr;
         duration = Date.now()/1000 - videoStartTime
@@ -237,18 +245,12 @@ socket.on('my_pong', function() { });
     
   });
 }
-function showTrack(dmList,track)
+function showTrack(dmList,player,track)
 {
-  // 清空轨道
-  for (let index = 0; 0!=track.cues.length; index++) {
-    var element = track.cues[0];
-    track.removeCue(element)
-  }
   showNum = 0
-  
   for (let index = 0; index < dmList.length; index++) {
     var element = dmList[showNum];
-    if(element['from']<=player.currentTime)//显示
+    if(dmList.length>0)//显示
     {
       showNum+=1
     }
@@ -263,11 +265,17 @@ function showTrack(dmList,track)
       showNum -= 1;
     }
   }
+  // 清空轨道
+  for (let index = 0; 0!=track.cues.length; index++) {
+    var element = track.cues[0];
+    track.removeCue(element)
+  }
   for (let index = 0; index < showNum; index++)
-    { 
-        var element = dmList[index];
-        track.addCue(new VTTCue(element['from']-element['costTime'], 3600, element['content']));
-    }
+  { 
+    var element = dmList[index];
+    track.addCue(new VTTCue(player.currentTime, 3600, element['content']));
+  }
+
   // if(showNum==0)
   // {
   //   for (let index = 0; index < dmList.length; index++)
