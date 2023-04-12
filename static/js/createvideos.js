@@ -168,7 +168,9 @@ function createVideo(source,format,platform,roomid) {
   //       hls.attachMedia(video);
   // }]
   // -----------全局变量-------------------------
-  const track = video.addTextTrack('subtitles', '中文', 'zh');
+  const track = video.addTextTrack('captions', '中文', 'zh');
+  track.mode = "showing";
+
   var socket = io();
   dmList = []
   // ------------------------------------
@@ -184,7 +186,7 @@ socket.on('my_pong', function() { });
     socket.emit('stopDm', msg);
     return false;
   }
-  
+  firstT = true
   socket.on('getDm response', function(msg) {
       // console.log(msg.data)
       retMsg = receviceData(msg)
@@ -198,35 +200,43 @@ socket.on('my_pong', function() { });
             return
         }
         costTime = (Date.now()/1000 - sendTime)
-        retMsg.data['costTime'] = costTime
+        if(firstT)
+        {
+          firstTime = retMsg.data['from'] -  player.currentTime
+          firstT = false
+        }
+        retMsg.data['costTime'] = costTime + firstTime
+        // console.log('indevelTime: ',retMsg.data['from'] -  player.currentTime)
         dmList.push(retMsg.data)
     });
   player.on('loadeddata', (event) => {
           // console.log("load")
-          const instance = event.detail.plyr;
-          if(platform!="douyin")
-          {
-            updatedanmmu(instance,socket,platform,roomid)
-          }
           videoStartTime =Date.now()/1000
   });
       
   player.on('pause', (event) => {
-      clearInterval(window.timer)
-      clearInterval(window.showTracktimer)
+    clearInterval(window.showTracktimer)
+    clearInterval(window.timer)
+
   });
+  first = true
   player.on('play', (event) => {
-      const instance = event.detail.plyr;
-      // 更新字幕
-      if(platform!='douyin')
+    const instance = event.detail.plyr;
+    // 更新字幕
+    if(platform!='douyin')
+    {
+      if(first)
       {
-        window.timer = setInterval(function() {
-          updatetrack(instance,socket,track,roomid);
-        },500) 
-        window.showTracktimer = setInterval(function() {
-          showTrack(dmList,player,track)
-        },300)
+        updatedanmmu(instance,socket,platform,roomid)
+        first = false
       }
+      window.timer = setInterval(function() {
+        updatetrack(instance,socket,track,roomid);
+      },500) 
+      window.showTracktimer = setInterval(function() {
+        showTrack(dmList,player,track)
+      },300)
+    }
   }); 
  
 
@@ -248,10 +258,14 @@ socket.on('my_pong', function() { });
 function showTrack(dmList,player,track)
 {
   showNum = 0
+  maxcosttime =0
   for (let index = 0; index < dmList.length; index++) {
     var element = dmList[showNum];
-    if(dmList.length>0)//显示
+    
+    if(element['from']-element['costTime']<=player.currentTime)//显示
     {
+      if(element['costTime']>maxcosttime)
+        maxcosttime = element['costTime'] 
       showNum+=1
     }
     else
@@ -261,7 +275,7 @@ function showTrack(dmList,player,track)
     }
     if(showNum>8)
     {
-      dmList.shift();
+      dmList.splice(0,1);
       showNum -= 1;
     }
   }
@@ -273,7 +287,10 @@ function showTrack(dmList,player,track)
   for (let index = 0; index < showNum; index++)
   { 
     var element = dmList[index];
-    track.addCue(new VTTCue(player.currentTime, 3600, element['content']));
+    let cue = new VTTCue(element['from']-maxcosttime, 3600, element['content']);
+    cue.line = index;
+    cue.id = String(index);
+    track.addCue(cue);
   }
 
   // if(showNum==0)
