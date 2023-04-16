@@ -258,14 +258,11 @@ socket.on('my_pong', function() { });
 function showTrack(dmList,player,track)
 {
   showNum = 0
-  maxcosttime =0
   for (let index = 0; index < dmList.length; index++) {
     var element = dmList[showNum];
     
     if(element['from']-element['costTime']<=player.currentTime)//显示
     {
-      if(element['costTime']>maxcosttime)
-        maxcosttime = element['costTime'] 
       showNum+=1
     }
     else
@@ -287,7 +284,7 @@ function showTrack(dmList,player,track)
   for (let index = 0; index < showNum; index++)
   { 
     var element = dmList[index];
-    let cue = new VTTCue(element['from']-maxcosttime, 3600, element['content']);
+    let cue = new VTTCue(element['from']-element['costTime'], 3600, element['content']);
     cue.line = index;
     cue.id = String(index);
     track.addCue(cue);
