@@ -82,7 +82,7 @@ var filter = UrlParam.paramValues("s");
                             +'</div>'
                             +'<div class="vid-info">'
                                 +'<span>'
-                                +'<p>上次开播时间: '+info["created_at"]+'</p>'
+                                +'<p>上次开播: '+info["created_at"]+'</p>'
                                 +'</span>'
                                 +'<p style="background: #909090" class="livestatus">未直播<p/>'
                             +'</div>'

@@ -399,7 +399,7 @@ function updateIndexPlaySideAll(data)
                 // +"<input type='text' value="+info["name"]+" onclick={OpenVideo('"+info['linkid']+"')} >"
                 +"<p id ='achorname'>"+info["achorname"]+"</p>"
                 +"<span id='liveinfos'>"
-                +"<p>上次开播时间: "+info["created_at"]+"</p>"
+                +"<p>上次开播: "+info["created_at"]+"</p>"
                 +"</span>"
                 +"<p style='background: #909090' class='livestatus'>未直播<p/>"
             +"</div>"
@@ -468,7 +468,7 @@ function updateIndexPlaySideAll(data)
                         else
                         {
                             document.getElementById('liveStatusInfo').innerHTML = "";
-                            document.getElementById('createTime').innerText = info["category"]+" • 上次开播时间："+info["created_at"];
+                            document.getElementById('createTime').innerText = info["category"]+" • 上次开播："+info["created_at"];
                         }
                         document.title = info['folderName'];
                         document.getElementById('vid-title').innerText=info['folderName'];
@@ -497,7 +497,7 @@ function updateIndexPlaySideAll(data)
                         }
                         else
                         {
-                            sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                            sideLiveInfo.innerHTML = "<p>上次开播: "+info["created_at"]+"</p>";
                             livestatusWord.innerText = "未直播";
                             livestatusWord.style = "background: #909090";
                             achorname.innerText = info["achorname"];
@@ -582,7 +582,7 @@ function updateInfoIndexAll(data)
                             +"<a id='liveWordLink' href='play?p="+info["platform"]+"&v="+info["linkid"]+"'>"+info['folderName']+"</a>"
                             +"<p id ='achorname'>"+info["achorname"]+"</p>"
                             +"<span id='liveinfos'>"
-                            +"<p>上次开播时间: "+info["created_at"]+"</p>"
+                            +"<p>上次开播: "+info["created_at"]+"</p>"
                             +"</span>"
                             +"<p style='background: #909090' class='livestatus'>未直播<p/>"
                             +"</div>"
@@ -678,7 +678,7 @@ function updateInfoIndexAll(data)
                 }
                 else
                 {
-                    liveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                    liveInfo.innerHTML = "<p>上次开播: "+info["created_at"]+"</p>";
                     livestatusWord.innerText = "未直播";
                     livestatusWord.style = "background: #909090";
                     achorname.innerText = info['achorname'];
@@ -758,7 +758,7 @@ function updateInfoIndex(data)
                             +"<a id='liveWordLink' href='play?p="+info["platform"]+"&v="+info["linkid"]+"'>"+info['folderName']+"</a>"
                             +"<p id ='achorname'>"+info["achorname"]+"</p>"
                             +"<span id='liveinfos'>"
-                            +"<p>上次开播时间: "+info["created_at"]+"</p>"
+                            +"<p>上次开播: "+info["created_at"]+"</p>"
                             +"</span>"
                             +"<p style='background: #909090' class='livestatus'>未直播<p/>"
                             +"</div>"
@@ -826,7 +826,7 @@ function updateInfoIndex(data)
                 }
                 else
                 {
-                    liveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                    liveInfo.innerHTML = "<p>上次开播: "+info["created_at"]+"</p>";
                     livestatusWord.innerText = "未直播";
                     livestatusWord.style = "background: #909090";
                     achorname.innerText = info['achorname'];

@@ -284,7 +284,8 @@ function showTrack(dmList,player,track)
   for (let index = 0; index < showNum; index++)
   { 
     var element = dmList[index];
-    let cue = new VTTCue(element['from']-element['costTime'], 3600, element['content']);
+    fromtime = element['from']-element['costTime']<player.currentTime?player.currentTime:element['from']-element['costTime']
+    let cue = new VTTCue(fromtime, 3600, element['content']);
     cue.line = index;
     cue.id = String(index);
     track.addCue(cue);

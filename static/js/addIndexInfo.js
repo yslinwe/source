@@ -63,7 +63,7 @@ $(function(){
                             +"<a id='liveWordLink' href='play?p="+info["platform"]+"&v="+info["linkid"]+"'>"+info['folderName']+"</a>"
                             +"<p id ='achorname'>"+info["achorname"]+"</p>"
                             +"<span id='liveinfos'>"
-                            +"<p>上次开播时间: "+info["created_at"]+"</p>"
+                            +"<p>上次开播: "+info["created_at"]+"</p>"
                             +"</span>"
                             +"<p style='background: #909090' class='livestatus'>未直播<p/>"
                             +"</div>"
@@ -159,7 +159,7 @@ $(function(){
                 }
                 else
                 {
-                    liveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                    liveInfo.innerHTML = "<p>上次开播: "+info["created_at"]+"</p>";
                     livestatusWord.innerText = "未直播";
                     livestatusWord.style = "background: #909090";
                 }

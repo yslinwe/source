@@ -23,7 +23,7 @@ $(function(){
     else
     {
         document.getElementById('liveStatusInfo').innerHTML = "";
-        document.getElementById('createTime').innerText = info["category"]+" • 上次开播时间："+info["created_at"];
+        document.getElementById('createTime').innerText = info["category"]+" • 上次开播："+info["created_at"];
     }
     document.title = info['folderName'];
     document.getElementById('vid-title').innerText=info['folderName'];
@@ -97,7 +97,7 @@ $(function(){
                 // +"<input type='text' value="+info["name"]+" onclick={OpenVideo('"+info['linkid']+"')} >"
                 +"<p id ='achorname'>"+info["achorname"]+"</p>"
                 +"<span id='liveinfos'>"
-                +"<p>上次开播时间: "+info["created_at"]+"</p>"
+                +"<p>上次开播: "+info["created_at"]+"</p>"
                 +"</span>"
                 +"<p style='background: #909090' class='livestatus'>未直播<p/>"
             +"</div>"
@@ -166,7 +166,7 @@ $(function(){
                         else
                         {
                             document.getElementById('liveStatusInfo').innerHTML = "";
-                            document.getElementById('createTime').innerText = info["category"]+" • 上次开播时间："+info["created_at"];
+                            document.getElementById('createTime').innerText = info["category"]+" • 上次开播："+info["created_at"];
                         }
                         document.title = info['folderName'];
                         document.getElementById('vid-title').innerText=info['folderName'];
@@ -192,7 +192,7 @@ $(function(){
                         }
                         else
                         {
-                            sideLiveInfo.innerHTML = "<p>上次开播时间: "+info["created_at"]+"</p>";
+                            sideLiveInfo.innerHTML = "<p>上次开播: "+info["created_at"]+"</p>";
                             livestatusWord.innerText = "未直播";
                             livestatusWord.style = "background: #909090";
 

@@ -357,20 +357,24 @@ nav{
 .vid-list 
 {
     border-radius: 5px;
+    transition: all 0.1s ease-in-out;
+    overflow: hidden;
 }
 .vid-list:active {
-    -webkit-transform: scale(0.95, 0.95);
+    /* -webkit-transform: scale(0.95, 0.95);
     -o-transform: scale(0.95, 0.95);
     -ms-transform: scale(0.95, 0.95); 
     transform: scale(0.95, 0.95);
-    box-shadow: 0 0 0 0;
+    box-shadow: 0 0 0 0; */
+    background-color:var(--hovercolor);
+    box-shadow: 0px 0px 0px 2px var(--linkclick);
 }
 .vid-list:hover
 {
-    /* transition-property: box-shadow; */
-    transition-property: box-shadow;
+    /* transition-property: box-shadow;
     transition-duration: 1s;
-    box-shadow: 0 0 4px 1px var(--firsttextcolor);
+    box-shadow: 0 0 4px 1px var(--firsttextcolor); */
+    transform: scale(1.05);
 }
 .vid-list .thumbnail{
     width: 100%;
@@ -448,7 +452,7 @@ nav{
     overflow : hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical; 
     font-size: 1.0rem;
     min-height: 20px;
@@ -477,7 +481,7 @@ nav{
     overflow : hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 @media(max-width:900px){
@@ -607,18 +611,22 @@ nav{
     border-radius: 5px;
     /* border: 1px solid #ddd; */
     cursor: pointer;
+    transition: all .3s;
+    overflow: hidden;
 }
 .side-video-list:active
 {
-    -webkit-transform: scale(0.9, 0.9);
+    /* -webkit-transform: scale(0.9, 0.9);
     -o-transform: scale(0.9, 0.9);
     -ms-transform: scale(0.9, 0.9); 
-    transform: scale(0.9, 0.9);
+    transform: scale(0.9, 0.9); */
+    background-color:var(--hovercolor);
+    box-shadow: 0px 0px 0px 2px var(--linkclick);
 }
-/* .side-video-list:hover
+.side-video-list:hover
 {
-    background-color:var(--hovercolor)
-} */
+    transform: scale(1.05, 1.05); 
+}
 .side-video-list_click
 {
     background-color:var(--hovercolor)
@@ -665,6 +673,13 @@ nav{
 }
 .side-video-list .vid-info span p{
     padding-left: 0px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break:break-all;
+    white-space:normal;
+    padding-bottom: 5px;
 }
 
 .side-video-list .vid-info{ 
@@ -696,7 +711,7 @@ nav{
     font-size: 0.8rem;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     word-break:break-all;
     white-space:normal;
@@ -709,7 +724,7 @@ nav{
     font-size: 0.9rem;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     word-break:break-all;
     white-space:normal;
@@ -1107,6 +1122,7 @@ body {
     --bgcolor: #181818;
     --secondbgcolor:#202020;
     --firsttextcolor:#ededed;
+    --linkclick:#ededed82;
     --mainButtonBgHovercolor:#ffffff;
     --secondtextcolor:#aaaaaa;
     --hovercolor:#3b3b3b;
@@ -1144,6 +1160,7 @@ body {
         --bgcolor: #f9f9f9;
         --secondbgcolor:#ffffff;
         --firsttextcolor: #000000;
+        --linkclick:#00000075;
         --mainButtonBgHovercolor:#000;
         --secondtextcolor:#5a5a5a;
         --hovercolor:#d6d6d6;
