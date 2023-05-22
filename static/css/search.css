@@ -71,7 +71,7 @@ nav{
 }
 .nav-left .logo{
     /* darklogo */
-    background-image: url("https://i.328888.xyz/2023/03/17/KJNKo.png");
+    background-image: url("../../static/images/darklogo.png");
     background-size: 160px;
     background-repeat: no-repeat;
     padding: 0px 0px 42px 160px;
@@ -1095,7 +1095,7 @@ body {
     }
     .nav-left .logo{
         /* darklogo */
-        background-image: url("https://i.328888.xyz/2023/03/17/KJNKo.png");
+        background-image: url("../../static/images/darklogo.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
@@ -1131,7 +1131,7 @@ body {
     }
     .nav-left .logo{
         /* lightlogo */
-        background-image: url("https://i.328888.xyz/2023/03/17/KJIgA.png");
+        background-image: url("../../static/images/lightlogo.png");
         background-size: 160px;
         background-repeat: no-repeat;
         padding: 0px 0px 42px 160px;
