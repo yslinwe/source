@@ -16,11 +16,25 @@
 //     searchBoxInput.classList.toggle("open-search-box-input")
 // }
 // --------------------------------------------
-//init()
+init()
 // --------------------------------------------
 
 function init()
 {
+    var scrollToTopButton = document.getElementById("scrollToTop");
+
+    window.onscroll = function() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollToTopButton.style.display = "block";
+      } else {
+        scrollToTopButton.style.display = "none";
+      }
+    };
+
+    scrollToTopButton.onclick = function() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+    };
     var w = document.documentElement.clientWidth || document.body.clientWidth;
     if(w>900)
     {
